@@ -58,7 +58,7 @@ struct Movie: Decodable, Identifiable, Hashable {
     }
     
     var genreText: String {
-        genres?.first?.name ?? "n/a"
+        genres?.first?.name ?? "Unknown"
     }
     
     var ratingText: String {
@@ -69,25 +69,35 @@ struct Movie: Decodable, Identifiable, Hashable {
         return ratingText
     }
     
+    var restOfRating: String {
+        let ratingText = self.ratingText
+        var restOfRating = ""
+        
+        for _ in 1...10-ratingText.count {
+            restOfRating += "★"
+        }
+        return restOfRating
+    }
+    
     var scoreText: String {
         guard ratingText.count > 0 else {
-            return "n/a"
+            return "Not rated"
         }
         return "\(ratingText.count)/10"
     }
     
     var yearText: String {
         guard let releaseDate = self.releaseDate, let date = Utilities.dateFormatter.date(from: releaseDate) else {
-            return "n/a"
+            return "Unknown"
         }
         return Movie.yearFormatter.string(from: date)
     }
     
     var durationText: String {
         guard let runtime = self.runtime, runtime > 0 else {
-            return "n/a"
+            return "Upcoming"
         }
-        return Movie.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
+        return Movie.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "Upcoming"
     }
     
     var cast: [MovieCast]? {
