@@ -28,16 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
-            
-            //List appearance setup
-//            UITableViewCell.appearance().backgroundColor = .black
-//            UITableView.appearance().backgroundColor = .black
-            
-            //Customise TabView color and opacity
-            UITabBar.appearance().backgroundImage = UIImage()
-            UITabBar.appearance().isTranslucent = true
-            UITabBar.appearance().backgroundColor = UIColor(named: "steam_background")
-            
+                 
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
             self.window = window
