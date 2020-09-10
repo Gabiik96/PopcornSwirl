@@ -16,7 +16,7 @@ struct SearchBarView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 5)
+            RoundedRectangle(cornerRadius: 8)
                 .fill(Color.steam_back)
                 .frame(height: 40)
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))

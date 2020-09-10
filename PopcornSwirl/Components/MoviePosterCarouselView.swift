@@ -9,16 +9,11 @@
 import SwiftUI
 
 struct MoviePosterCarouselView: View {
-    
-    let title: String
+
     let movies: [Movie]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text(title)
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 16) {
