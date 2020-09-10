@@ -19,13 +19,13 @@ class MovieSearchState: ObservableObject {
     
     private var subscriptionToken: AnyCancellable?
     
-    let movieService: MovieService
+    let movieService: NetworkingService
     
     var isEmptyResults: Bool {
         !self.query.isEmpty && self.movies != nil && self.movies!.isEmpty
     }
     
-    init(movieService: MovieService = MovieStore.shared) {
+    init(movieService: NetworkingService = NetworkingApi.shared) {
         self.movieService = movieService
     }
     

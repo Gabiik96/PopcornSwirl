@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 import SwiftUI
 
 class MovieListState: ObservableObject {
@@ -16,9 +15,9 @@ class MovieListState: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var error: NSError?
 
-    private let movieService: MovieService
+    private let movieService: NetworkingService
     
-    init(movieService: MovieService = MovieStore.shared) {
+    init(movieService: NetworkingService = NetworkingApi.shared) {
         self.movieService = movieService
     }
     

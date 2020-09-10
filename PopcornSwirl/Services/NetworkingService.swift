@@ -1,16 +1,25 @@
 //
-//  MovieStore.swift
+//  NetworkingAPI.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 30/08/2020.
+//  Created by Gabriel Balta on 10/09/2020.
 //  Copyright © 2020 Gabriel Balta. All rights reserved.
 //
 
 import Foundation
 
-class MovieStore: MovieService {
+protocol NetworkingService {
     
-    static let shared = MovieStore()
+    func fetchMovies(from endpoint: MovieListEndpoint, completion: @escaping (Result<MovieResponse, MovieError>) -> ())
+    func fetchMovie(id: Int, completion: @escaping (Result<Movie, MovieError>) -> ())
+    func searchMovie(query: String, completion: @escaping (Result<MovieResponse, MovieError>) -> ())
+    
+    func getGenreList(completion: @escaping (Result<GenreResult, MovieError>) -> ())
+}
+
+class NetworkingApi: NetworkingService {
+    
+    static let shared = NetworkingApi()
     private init() {}
     
     private let apiKey = "74453c2e0ce8657aff41cf040784191a"
@@ -47,6 +56,14 @@ class MovieStore: MovieService {
             "region": "US",
             "query": query
         ], completion: completion)
+    }
+    
+    func getGenreList(completion: @escaping (Result<GenreResult, MovieError>) -> ()) {
+        guard let url = URL(string: "\(baseAPIURL)/genre/movie/list") else {
+            completion(.failure(.invalidEndpoint))
+            return
+        }
+        self.loadURLAndDecode(url: url, params: ["language": "en-US"], completion: completion)
     }
     
     private func loadURLAndDecode<D: Decodable>(url: URL, params: [String: String]? = nil, completion: @escaping (Result<D, MovieError>) -> ()) {
@@ -100,4 +117,5 @@ class MovieStore: MovieService {
         }
     }
 }
+
 

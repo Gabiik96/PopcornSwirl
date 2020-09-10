@@ -10,12 +10,12 @@ import SwiftUI
 
 class MovieDetailState: ObservableObject {
     
-    private let movieService: MovieService
+    private let movieService: NetworkingService
     @Published var movie: Movie?
     @Published var isLoading = false
     @Published var error: NSError?
     
-    init(movieService: MovieService = MovieStore.shared) {
+    init(movieService: NetworkingService = NetworkingApi.shared) {
         self.movieService = movieService
     }
     
