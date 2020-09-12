@@ -22,13 +22,12 @@ struct MoviesSceneView: View {
     var body: some View {
         NavigationView {
             VStack {
-                
                 Picker(selection: $pickerSelected.animation(), label: Text("")) {
                     Text("Popular").tag(0)
                     Text("Top Rated").tag(1)
                     Text("Upcoming").tag(2)
                 }
-                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+                .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
                 .pickerStyle(SegmentedPickerStyle())
                 
                 
@@ -41,8 +40,7 @@ struct MoviesSceneView: View {
                 }
             }
             .navigationBarTitle(navBarTitles[pickerSelected])
-        }
-        .onAppear {
+        }.onAppear {
             self.popularState.loadMovies(with: .popular)
             self.topRatedState.loadMovies(with: .topRated)
             self.upcomingState.loadMovies(with: .upcoming)
@@ -67,8 +65,7 @@ struct MovieGroupView: View {
                     self.state.loadMovies(with: self.pickedCase)
                 }
             }
-        }
-        .transition(AnyTransition.slide.combined(with: .opacity))
+        }.transition(AnyTransition.slide.combined(with: .opacity))
     }
 }
 

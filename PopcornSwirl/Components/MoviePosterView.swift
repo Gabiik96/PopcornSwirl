@@ -14,15 +14,15 @@ struct MoviePosterView: View {
     
     var body: some View {
         
-        List {
+        ScrollView() {
             ForEach(self.movies) { movie in
                 NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
                     MoviePosterCard(movie: movie)
                 }.buttonStyle(PlainButtonStyle())
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
-        }.padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
+        }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
     }
-    
 }
 
 

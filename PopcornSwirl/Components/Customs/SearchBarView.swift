@@ -18,7 +18,7 @@ struct SearchBarView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
                 .fill(Color.steam_back)
-                .frame(height: 40)
+                .frame(height: 30)
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
             HStack {
                 Image(systemName: "magnifyingglass")

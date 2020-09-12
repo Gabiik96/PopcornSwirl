@@ -39,7 +39,7 @@ struct GenreTitleSectionView: View {
     
     var body: some View {
         VStack() {
-            NavigationLink(destination: GenreAllMoviesView()) {
+            NavigationLink(destination: MovieGridView(movies: moviesByGenreListState.movies ?? [Movie]())) {
                 HStack {
                     Text(self.genre.name)
                         .font(Font.custom("FjallaOne-Regular", size: 25))
@@ -78,12 +78,21 @@ struct GenreMoviesView: View {
     }
 }
 
-
-struct GenreAllMoviesView: View {
+struct MovieGridView: View {
     
+    var movies: [Movie] = [Movie]()
     
+    let layout = [GridItem(.adaptive(minimum: 150))]
     
     var body: some View {
-        Text("ss")
+        ScrollView {
+            LazyVGrid(columns: layout) {
+                ForEach(movies) { movie in
+                    NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                        MoviePosterCard(movie: movie)
+                    }.buttonStyle(PlainButtonStyle())
+                }
+            }.padding()
+        }
     }
 }
