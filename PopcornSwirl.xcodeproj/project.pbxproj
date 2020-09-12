@@ -42,7 +42,6 @@
 		42D2C9A724FB0A41000F0067 /* FHACondFrenchNC.otf in Resources */ = {isa = PBXBuildFile; fileRef = 42D2C9A424FB0A40000F0067 /* FHACondFrenchNC.otf */; };
 		42D2C9A924FB0B16000F0067 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D2C9A824FB0B16000F0067 /* Font.swift */; };
 		42D2C9AF24FB273A000F0067 /* MoviesSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D2C9AE24FB273A000F0067 /* MoviesSceneView.swift */; };
-		42D2C9B224FC3B8A000F0067 /* NetworkingApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D2C9B124FC3B8A000F0067 /* NetworkingApi.swift */; };
 		42D2C9B424FC3B99000F0067 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D2C9B324FC3B99000F0067 /* MovieService.swift */; };
 		42D2C9B724FC3C09000F0067 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42D2C9B624FC3C09000F0067 /* Movie.swift */; };
 /* End PBXBuildFile section */
@@ -85,7 +84,6 @@
 		42D2C9A424FB0A40000F0067 /* FHACondFrenchNC.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FHACondFrenchNC.otf; sourceTree = "<group>"; };
 		42D2C9A824FB0B16000F0067 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		42D2C9AE24FB273A000F0067 /* MoviesSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesSceneView.swift; sourceTree = "<group>"; };
-		42D2C9B124FC3B8A000F0067 /* NetworkingApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingApi.swift; sourceTree = "<group>"; };
 		42D2C9B324FC3B99000F0067 /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 		42D2C9B624FC3C09000F0067 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -235,7 +233,6 @@
 		42D2C9B024FC3B39000F0067 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				42D2C9B124FC3B8A000F0067 /* NetworkingApi.swift */,
 				42D2C9B324FC3B99000F0067 /* MovieService.swift */,
 				424E630E250AAF3F00505729 /* NetworkingService.swift */,
 			);
@@ -335,7 +332,6 @@
 				424E6311250AB5A800505729 /* GenreListState.swift in Sources */,
 				424E62F524FC4D4C00505729 /* PlainButtonStyle.swift in Sources */,
 				424E62F724FC5F5A00505729 /* MovieSearchState.swift in Sources */,
-				42D2C9B224FC3B8A000F0067 /* NetworkingApi.swift in Sources */,
 				424E62F924FC616A00505729 /* SearchBarView.swift in Sources */,
 				424E62F324FC452200505729 /* SafariView.swift in Sources */,
 				424E62FD24FC654E00505729 /* MyListSceneView.swift in Sources */,
