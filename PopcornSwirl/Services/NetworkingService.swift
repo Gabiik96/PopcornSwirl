@@ -15,7 +15,7 @@ protocol NetworkingService {
     func searchMovie(query: String, completion: @escaping (Result<MovieResponse, MovieError>) -> ())
     
     func getGenreList(completion: @escaping (Result<GenreResult, MovieError>) -> ())
-    func getMovieByGenre(withGenre genreId: Int, completion: @escaping (Result<MoviePage, MovieError>) -> ())
+    func getMovieByGenre(withGenre genreId: Int, completion: @escaping (Result<MovieResponse, MovieError>) -> ())
 }
 
 class NetworkingApi: NetworkingService {
@@ -67,7 +67,7 @@ class NetworkingApi: NetworkingService {
         self.loadURLAndDecode(url: url, params: ["language": "en-US"], completion: completion)
     }
     
-    func getMovieByGenre(withGenre genreId: Int, completion: @escaping (Result<MoviePage, MovieError>) -> ()) {
+    func getMovieByGenre(withGenre genreId: Int, completion: @escaping (Result<MovieResponse, MovieError>) -> ()) {
         guard let url = URL(string: "\(baseAPIURL)/discover/movie") else {
             completion(.failure(.invalidEndpoint))
             return

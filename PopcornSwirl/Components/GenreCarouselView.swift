@@ -14,15 +14,17 @@ struct GenreCarouselView: View {
     
     var body: some View {
         VStack {
-            if state.genres != nil {
-                List {
+            ScrollView {
+                if state.genres != nil {
                     ForEach(self.state.genres!) { genre in
                         GenreTitleSectionView(genre: genre)
+                            .frame(height : 200)
                     }
-                }
-            } else {
-                LoadingView(isLoading: state.isLoading, error: state.error) {
-                    self.state.loadGenres()
+                    
+                } else {
+                    LoadingView(isLoading: state.isLoading, error: state.error) {
+                        self.state.loadGenres()
+                    }
                 }
             }
         }
@@ -36,11 +38,17 @@ struct GenreTitleSectionView: View {
     let genre: Genres
     
     var body: some View {
-        VStack {
+        VStack() {
             NavigationLink(destination: GenreAllMoviesView()) {
-                Text(self.genre.name)
-                    .font(Font.custom("FjallaOne-Regular", size: 25))
-                    .foregroundColor(Color.steam_white)
+                HStack {
+                    Text(self.genre.name)
+                        .font(Font.custom("FjallaOne-Regular", size: 25))
+                        .foregroundColor(Color.steam_white)
+                        .padding(.leading)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .padding(.trailing)
+                }
             }
             GenreMoviesView(state: moviesByGenreListState, genreId: genre.id)
         }.onAppear() {
@@ -56,7 +64,7 @@ struct GenreMoviesView: View {
     let genreId: Int
     
     var body: some View {
-        Group {
+        VStack {
             if state.movies != nil {
                 MoviePosterCarouselView(movies: state.movies!)
             } else {
@@ -64,6 +72,8 @@ struct GenreMoviesView: View {
                     self.state.searchMoviesByGenre(genreId: self.genreId)
                 }
             }
+        }.onAppear() {
+            self.state.searchMoviesByGenre(genreId: self.genreId)
         }
     }
 }

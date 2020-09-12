@@ -21,6 +21,7 @@ class MoviesByGenreListState: ObservableObject {
         self.genreService = genreService
     }
     
+    
     func searchMoviesByGenre(genreId: Int) {
         self.movies = nil
         self.isLoading = true
@@ -36,3 +37,7 @@ class MoviesByGenreListState: ObservableObject {
         }
     }
 }
+
+//private extension Array where Element == MoviePage {
+//    var movies: [Movie] { flatMap { $0.results } }
+//}
