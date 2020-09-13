@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GenreCarouselView: View {
     
-    @ObservedObject var state: GenreListState
+    @EnvironmentObject var state: GenreListState
     
     var body: some View {
         VStack {
@@ -50,30 +50,17 @@ struct GenreTitleSectionView: View {
                         .padding(.trailing)
                 }
             }
-            GenreMoviesView(state: moviesByGenreListState, genreId: genre.id)
-        }.onAppear() {
-            self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
-        }
-    }
-}
-
-struct GenreMoviesView: View {
-    
-    @ObservedObject var state: MoviesByGenreListState
-    
-    let genreId: Int
-    
-    var body: some View {
-        VStack {
-            if state.movies != nil {
-                MoviePosterCarouselView(movies: state.movies!)
-            } else {
-                LoadingView(isLoading: state.isLoading, error: state.error) {
-                    self.state.searchMoviesByGenre(genreId: self.genreId)
+            VStack {
+                if moviesByGenreListState.movies != nil {
+                    MoviePosterCarouselView(movies: moviesByGenreListState.movies!)
+                } else {
+                    LoadingView(isLoading: moviesByGenreListState.isLoading, error: moviesByGenreListState.error) {
+                        self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
+                    }
                 }
+            }.onAppear() {
+                self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
             }
-        }.onAppear() {
-            self.state.searchMoviesByGenre(genreId: self.genreId)
         }
     }
 }

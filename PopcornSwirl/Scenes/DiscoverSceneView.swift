@@ -10,18 +10,25 @@ import SwiftUI
 
 struct DiscoverSceneView: View {
     
-    @ObservedObject var genreListState = GenreListState()
+    @EnvironmentObject var genreListState: GenreListState
     @ObservedObject var movieSearchState = MovieSearchState()
     
     var body: some View {
         NavigationView {
-            VStack {
-                SearchBarView(text: self.$movieSearchState.query, placeholder: "Search any movie or person")
-                GenreCarouselView(state: self.genreListState)
-                
+            VStack(alignment: .leading) {
+                SearchBarView(text: self.$movieSearchState.query, placeholder: "Search any movie")
+                Spacer()
+                if movieSearchState.query.count > 0 {
+                    if movieSearchState.movies != nil {
+                        MoviePosterView(movies: movieSearchState.movies!)
+                    }
+                } else {
+                    GenreCarouselView()
+                }
             }.navigationBarTitle("Discover")
         }.onAppear() {
             self.genreListState.loadGenres()
+            self.movieSearchState.startObserve()
         }
     }
 }

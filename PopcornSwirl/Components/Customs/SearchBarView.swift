@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct SearchBarView: View {
-    
+
     @Binding var text: String
-    
+
     let placeholder: String
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -27,5 +27,5 @@ struct SearchBarView: View {
             .padding(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 20))
         }
     }
-    
+
 }
