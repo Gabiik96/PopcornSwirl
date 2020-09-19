@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import CoreData
+
 
 struct MovieDetailView: View {
     
@@ -33,6 +35,8 @@ struct MovieDetailView: View {
 
 struct MovieDetailListView: View {
     
+    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    
     let movie: Movie
     @State private var selectedTrailer: MovieVideo?
     let imageLoader = ImageLoader()
@@ -56,10 +60,31 @@ struct MovieDetailListView: View {
                         + Text(movie.restOfRating).foregroundColor(.gray)
                 }
                 Text(movie.scoreText)
-
+                
             }
             
-            Divider()
+            HStack {
+                VStack {
+                    Button(action: {
+                        print("Hello button tapped!")
+                    }) {
+                        ButtonText(text: "Add to wishlist", color: .red)
+                    }.buttonStyle(BorderlessButtonStyle())
+                   
+                }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                Spacer()
+               
+                
+                VStack {
+                    Button(action: {
+                        print("Hello button tapped!")
+                    }) {
+                        ButtonText(text: "Mark as watched", color: .green)
+                    }.buttonStyle(BorderlessButtonStyle())
+                    
+                }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                Spacer()
+            }
             
             HStack(alignment: .top, spacing: 4) {
                 if movie.cast != nil && movie.cast!.count > 0 {
@@ -145,6 +170,22 @@ struct MovieDetailImage: View {
         .onAppear {
             self.imageLoader.loadImage(with: self.imageURL)
         }
+    }
+}
+
+struct ButtonText: View {
+    
+    var text: String
+    var color: Color
+    
+    var body: some View {
+        Text(self.text)
+            .padding(12)
+            .foregroundColor(self.color)
+            .overlay(
+                RoundedRectangle(cornerRadius: 30)
+                    .stroke(self.color, lineWidth: 0.7)
+            )
     }
 }
 
