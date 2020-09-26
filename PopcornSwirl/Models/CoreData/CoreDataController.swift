@@ -18,7 +18,7 @@ class CoreDataController {
     func saveMovie(moc: NSManagedObjectContext, movieID: Int, note: String? = nil, wishlisted: Bool? = nil, watched: Bool? = nil) {
         let movie = MovieEntity(context: moc)
                     
-        movie.movieID = Int32(movieID)
+        movie.movieID = Int64(movieID)
         if note != nil { movie.note = note! }
         if wishlisted != nil { movie.wishlisted = wishlisted! }
         if watched != nil { movie.watched = watched! }
@@ -49,4 +49,3 @@ class CoreDataController {
     }
 
 }
-

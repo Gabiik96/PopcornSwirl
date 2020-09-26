@@ -17,7 +17,7 @@ class MovieEntity: NSManagedObject, Identifiable {
     }
     
     // Properties
-    @NSManaged var movieID: Int32
+    @NSManaged var movieID: Int64
     @NSManaged var note: String?
     @NSManaged var watched: Bool
     @NSManaged var wishlisted: Bool

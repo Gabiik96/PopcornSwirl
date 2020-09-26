@@ -12,8 +12,9 @@ import CoreData
 
 struct MovieDetailView: View {
     
-    let movieId: Int
     @ObservedObject private var movieDetailState = MovieDetailState()
+    
+    let movieId: Int
     
     var body: some View {
         ZStack {
@@ -36,10 +37,25 @@ struct MovieDetailView: View {
 struct MovieDetailListView: View {
     
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
+    @FetchRequest var currentFetch: FetchedResults<MovieEntity>
+    
+    @State private var selectedTrailer: MovieVideo?
+    
+    let coreDataController = CoreDataController()
+    let imageLoader = ImageLoader()
     
     let movie: Movie
-    @State private var selectedTrailer: MovieVideo?
-    let imageLoader = ImageLoader()
+    
+    init(movie: Movie) {
+        self.movie = movie
+        
+        // Fetch movie from CoreData by Predicate with movie ID
+        var predicate: NSPredicate?
+        predicate = NSPredicate(format: "movieID = %@",String(movie.id))
+        
+        self._currentFetch = FetchRequest(entity: MovieEntity.entity(), sortDescriptors: [], predicate: predicate)
+        
+    }
     
     var body: some View {
         List {
@@ -66,7 +82,14 @@ struct MovieDetailListView: View {
             HStack {
                 VStack {
                     Button(action: {
-                        print("Hello button tapped!")
+                        if currentFetch.count != 0  {
+                            coreDataController.updateMovie(
+                                moc: self.moc, movie: currentFetch.first!,
+                                wishlisted: currentFetch.first!.wishlisted ? false : true)
+                        } else {
+                            coreDataController.saveMovie(moc: self.moc, movieID: self.movie.id, wishlisted: true)
+                            
+                        }
                     }) {
                         ButtonText(text: "Add to wishlist", color: .red)
                     }.buttonStyle(BorderlessButtonStyle())
@@ -126,7 +149,7 @@ struct MovieDetailListView: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 }
-            }
+            }.onAppear() { print(currentFetch.count)}
             
             Divider()
             
