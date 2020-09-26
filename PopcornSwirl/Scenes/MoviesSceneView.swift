@@ -18,7 +18,6 @@ struct MoviesSceneView: View {
     
     private let navBarTitles = ["Popular","Top Rated", "Upcoming"]
     
-    
     var body: some View {
         NavigationView {
             VStack {
@@ -38,8 +37,7 @@ struct MoviesSceneView: View {
                 } else if pickerSelected == 2 {
                     MovieGroupView(state: upcomingState, pickedCase: .upcoming)
                 }
-            }
-            .navigationBarTitle(navBarTitles[pickerSelected])
+            }.navigationBarTitle(navBarTitles[pickerSelected])
         }.onAppear {
             self.popularState.loadMovies(with: .popular)
             self.topRatedState.loadMovies(with: .topRated)

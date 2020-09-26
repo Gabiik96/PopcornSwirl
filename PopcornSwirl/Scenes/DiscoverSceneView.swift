@@ -11,6 +11,7 @@ import SwiftUI
 struct DiscoverSceneView: View {
     
     @EnvironmentObject var genreListState: GenreListState
+    
     @ObservedObject var movieSearchState = MovieSearchState()
     
     var body: some View {

@@ -7,13 +7,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
     
     init() {
         setupApperance()
-        
-        
     }
     
     var body: some View {
@@ -21,17 +20,16 @@ struct ContentView: View {
             MoviesSceneView()
                 .tabItem {
                     self.tabBarItem(text: "Movies", image: "square.stack")
-            }
+                }
             DiscoverSceneView()
                 .tabItem {
                     self.tabBarItem(text: "Discover", image: "film")
-            }
-            Text("My List")
+                }
+            MyListSceneView()
                 .tabItem {
                     self.tabBarItem(text: "My List", image: "heart.circle")
-            }
+                }
         }.accentColor(Color.steam_gold)
-        
     }
     
     //MARK: - Functions
@@ -63,10 +61,5 @@ struct ContentView: View {
         
         UIWindow.appearance().tintColor = UIColor(named: "steam_gold")
     }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+    
 }

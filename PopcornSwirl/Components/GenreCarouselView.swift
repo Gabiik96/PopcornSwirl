@@ -17,7 +17,7 @@ struct GenreCarouselView: View {
             ScrollView {
                 if state.genres != nil {
                     ForEach(self.state.genres!) { genre in
-                        GenreTitleSectionView(genre: genre)
+                        GenreSectionView(genre: genre)
                             .frame(height : 200)
                     }
                     
@@ -31,7 +31,7 @@ struct GenreCarouselView: View {
     }
 }
 
-struct GenreTitleSectionView: View {
+struct GenreSectionView: View {
     
     @ObservedObject private var moviesByGenreListState = MoviesByGenreListState()
     
@@ -67,7 +67,7 @@ struct GenreTitleSectionView: View {
 
 struct MovieGridView: View {
     
-    var movies: [Movie] = [Movie]()
+    @State var movies: [Movie] = [Movie]()
     
     let layout = [GridItem(.adaptive(minimum: 150))]
     
