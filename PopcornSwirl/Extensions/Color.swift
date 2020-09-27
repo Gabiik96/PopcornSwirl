@@ -42,8 +42,8 @@ extension Color {
         Color("steam_blue", bundle: nil)
     }
     
-    public static var steam_bordeaux: Color {
-        Color("steam_bordeaux", bundle: nil)
+    public static var steam_red: Color {
+        Color("steam_red", bundle: nil)
     }
     
     public static var steam_green: Color {
