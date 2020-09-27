@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 
-class CoreDataController {
+class CoreDataController: ObservableObject {
     
     
     //MARK:- Add data

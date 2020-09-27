@@ -30,6 +30,8 @@ struct MovieDetailView: View {
         .navigationBarTitle(movieDetailState.movie?.title ?? "")
         .onAppear {
             self.movieDetailState.loadMovie(id: self.movieId)
+            
+            
         }
     }
 }
@@ -39,7 +41,12 @@ struct MovieDetailListView: View {
     @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
     @FetchRequest var currentFetch: FetchedResults<MovieEntity>
     
+    var newMovieEntity = MovieEntity()
+    
     @State private var selectedTrailer: MovieVideo?
+    @State private var wish = false
+    @State private var watch = false
+    @State private var note = ""
     
     let coreDataController = CoreDataController()
     let imageLoader = ImageLoader()
@@ -48,6 +55,8 @@ struct MovieDetailListView: View {
     
     init(movie: Movie) {
         self.movie = movie
+        
+        
         
         // Fetch movie from CoreData by Predicate with movie ID
         var predicate: NSPredicate?
@@ -82,27 +91,43 @@ struct MovieDetailListView: View {
             HStack {
                 VStack {
                     Button(action: {
-                        if currentFetch.count != 0  {
-                            coreDataController.updateMovie(
-                                moc: self.moc, movie: currentFetch.first!,
-                                wishlisted: currentFetch.first!.wishlisted ? false : true)
-                        } else {
-                            coreDataController.saveMovie(moc: self.moc, movieID: self.movie.id, wishlisted: true)
-                            
+                        self.wish.toggle()
+                        
+                        if currentFetch.count != 0 && self.wish == true {
+                            self.watch.toggle()
+                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: true, watched: false)
+                        } else if currentFetch.count != 0 {
+                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: currentFetch.first!.wishlisted ? false : true)
                         }
-                    }) {
-                        ButtonText(text: "Add to wishlist", color: .red)
+                    })
+                    {
+                        ButtonText(
+                            text: self.wish ? "Wishlisted" : "Add to wishlist",
+                            foregroundColor: self.wish ? .black : .steam_red,
+                            fillColor: self.wish ? .steam_red : .black
+                        )
                     }.buttonStyle(BorderlessButtonStyle())
-                   
+                    
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Spacer()
-               
+                
                 
                 VStack {
                     Button(action: {
-                        print("Hello button tapped!")
+                        self.watch.toggle()
+                        print(currentFetch.first)
+                        if currentFetch.count != 0 && self.watch == true {
+                            self.wish.toggle()
+                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: false, watched: true)
+                        } else if currentFetch.count != 0 {
+                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, watched: currentFetch.first!.watched ? false : true)
+                        }
                     }) {
-                        ButtonText(text: "Mark as watched", color: .green)
+                        ButtonText(
+                            text: self.watch ? "Watched" : "Mark as watched",
+                            foregroundColor: self.watch ? .black : .steam_green,
+                            fillColor: self.watch ? .steam_green : .black
+                        )
                     }.buttonStyle(BorderlessButtonStyle())
                     
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
@@ -149,9 +174,38 @@ struct MovieDetailListView: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 }
-            }.onAppear() { print(currentFetch.count)}
+            }
             
-            Divider()
+            VStack {
+                Text("Notes")
+                    .foregroundColor(.steam_gold)
+                    .padding(.bottom, 1)
+                ZStack {
+                    TextEditor(text: $note)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.steam_gold, lineWidth: 1)
+                        )
+                        .onChange(of: note) { value in
+                            if currentFetch.count != 0  {
+                                coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!,
+                                                               note: currentFetch.first!.note,
+                                                               wishlisted: currentFetch.first?.wishlisted,
+                                                               watched: currentFetch.first!.watched)
+                            }
+//                            else {
+//                                coreDataController.updateMovie(moc: self.moc, movie: newMovieEntity,
+//                                                               note: newMovieEntity.note,
+//                                                               wishlisted: newMovieEntity.wishlisted,
+//                                                               watched: newMovieEntity.watched)
+//                            }
+                        }
+                    // invisible Text to secure TextEditor height size
+                    Text(note)
+                        .opacity(0)
+                }
+            }
+            
             
             if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
                 Text("Trailers").font(.headline)
@@ -172,6 +226,21 @@ struct MovieDetailListView: View {
         }
         .sheet(item: self.$selectedTrailer) { trailer in
             SafariView(url: trailer.youtubeURL!)
+        }.onAppear() {
+            print(self._currentFetch.wrappedValue)
+            configure()
+        }
+    }
+    
+    func configure() {
+        
+        self.wish = currentFetch.first?.wishlisted ?? false
+        self.watch = currentFetch.first?.watched ?? false
+        self.note = currentFetch.first?.note ?? ""
+        
+        if self.currentFetch.count == 0 {
+            print("Creating new CoreData Object")
+            coreDataController.saveMovie(moc: self.moc, movieID: self.movie.id, note: "", wishlisted: false, watched: false)
         }
     }
 }
