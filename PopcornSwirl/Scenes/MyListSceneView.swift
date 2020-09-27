@@ -46,10 +46,25 @@ struct MyListSceneView: View {
                             ForEach(wishlistedState.movies) { movie in
                                 NavigationLink(destination:
                                                 MovieDetailView(movieId: movie.id)
-                                                .onDisappear() {self.configure()}
+                                                .transition(.opacity)
+                                                .onDisappear() { self.configure() }
                                 ) {
                                     MoviePosterCard(movie: movie)
                                 }.buttonStyle(PlainButtonStyle())
+                            }
+                        }.padding()
+                    }
+                } else if pickerSelected == 1 && watchedState.movies.count != 0 {
+                    ScrollView {
+                        LazyVGrid(columns: layout) {
+                            ForEach(watchedState.movies, id: \.id) { movie in
+                                NavigationLink(destination:
+                                                MovieDetailView(movieId: movie.id)
+                                                .onDisappear() { self.configure() }
+                                ) {
+                                    MoviePosterCard(movie: movie)
+                                }.buttonStyle(PlainButtonStyle())
+                                .transition(.asymmetric(insertion: .scale, removal: .slide))
                             }
                         }.padding()
                     }
@@ -81,6 +96,21 @@ struct MyListSceneView: View {
                 self.watchedState.appendMovie(id: Int(data.movieID))
             }
         }
+    }
+    
+    func checkWish() {
+        if wishlistedData.count != 0 {
+            var moviesData = [Int]()
+            for data in wishlistedData {
+                moviesData.append(Int(data.movieID))
+            }
+            
+            wishlistedState.movies = wishlistedState.movies.filter {
+                moviesData.contains($0.id)
+            }
+        }
+        
+//        wishlistedState.
     }
 }
 
