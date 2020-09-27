@@ -199,16 +199,20 @@ struct MovieDetailImage: View {
 struct ButtonText: View {
     
     var text: String
-    var color: Color
+    var foregroundColor: Color
+    var fillColor: Color = .black
     
     var body: some View {
-        Text(self.text)
-            .padding(12)
-            .foregroundColor(self.color)
+        
+        RoundedRectangle(cornerRadius: 30)
+            .strokeBorder(self.foregroundColor, lineWidth: 0.9)
+            .background(RoundedRectangle(cornerRadius: 30).fill(self.fillColor))
             .overlay(
-                RoundedRectangle(cornerRadius: 30)
-                    .stroke(self.color, lineWidth: 0.7)
+                Text(self.text).fontWeight(.semibold)
+                    .padding(12)
+                    .foregroundColor(self.foregroundColor)
             )
+        
     }
 }
 
