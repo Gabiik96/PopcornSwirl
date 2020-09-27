@@ -17,7 +17,8 @@ struct DiscoverSceneView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                SearchBarView(text: self.$movieSearchState.query, placeholder: "Search any movie")
+                SearchBarView(text: self.$movieSearchState.query)
+                DividerGradient()
                 Spacer()
                 if movieSearchState.query.count > 0 {
                     if movieSearchState.movies != nil {

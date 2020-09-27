@@ -77,6 +77,7 @@ struct MovieGridView: View {
                 ForEach(movies) { movie in
                     NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
                         MoviePosterCard(movie: movie)
+                            
                     }.buttonStyle(PlainButtonStyle())
                 }
             }.padding()

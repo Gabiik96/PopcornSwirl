@@ -12,8 +12,6 @@ struct SearchBarView: View {
 
     @Binding var text: String
 
-    let placeholder: String
-
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -22,7 +20,7 @@ struct SearchBarView: View {
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
             HStack {
                 Image(systemName: "magnifyingglass")
-                TextField(placeholder, text: $text)
+                TextField("Search any movie", text: $text)
             }
             .padding(EdgeInsets(top: 10, leading: 25, bottom: 0, trailing: 20))
         }
