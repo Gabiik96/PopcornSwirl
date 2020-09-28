@@ -22,33 +22,33 @@ The user will be able to see trailer for each movie, redirected by safariView to
 Main view, in which latest movies are showed, user can choose from picker one of 3 option to discover new movies. <br>
 <br>
 <p align="center">
-<img src="ReadmeFiles/MoviesScene" width="350">
+<img src="ReadmeFiles/MoviesScene.png" width="350">
 </p>
 
 <br>
 Discovery view, in which user will be shown movies separated by theirs genre, also will be able to search for any movie or see more movies in selected genre. <br>
 <br>
 <p align="center">
-<img src="ReadmeFiles/DiscoverScene" width="350">
-<img src="ReadmeFiles/GenreGrid" width="350">
-<img src="ReadmeFiles/MovieSearch" width="350">
+<img src="ReadmeFiles/DiscoverScene.png" width="350">
+<img src="ReadmeFiles/GenreGrid.png" width="350">
+<img src="ReadmeFiles/MovieSearch.png" width="350">
 </p>
 
 <br>
 List View, is view where user can see his movies marked as wishlisted or watched. <br>
 <br>
 <p align="center">
-<img src="ReadmeFiles/Wishlisted" width="350">
-<img src="ReadmeFiles/Watched" width="350">
-<img src="ReadmeFiles/MovieWishlisted" width="350">
-<img src="ReadmeFiles/MovieWatched" width="350">
+<img src="ReadmeFiles/Wishlisted.png" width="350">
+<img src="ReadmeFiles/Watched.png" width="350">
+<img src="ReadmeFiles/MovieWishlisted.png" width="350">
+<img src="ReadmeFiles/MovieWatched.png" width="350">
 </p>
 
 <br>
 Detailed view of movie and selected trailer. <br>
 <br>
 <p align="center">
-<img src="ReadmeFiles/MovieDetail" width="350">
-<img src="ReadmeFiles/Trailer" width="350">
+<img src="ReadmeFiles/MovieDetail.png" width="350">
+<img src="ReadmeFiles/Trailer.png" width="350">
 
 </p>
