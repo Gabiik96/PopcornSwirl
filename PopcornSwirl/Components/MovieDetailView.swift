@@ -71,6 +71,14 @@ struct MovieDetailListView: View {
     
     var body: some View {
         List {
+            HStack {
+                Spacer()
+                Text(movie.title)
+                    .font(Font.FjallaOne(size: 40))
+                    .foregroundColor(.popcorn_gold)
+                Spacer()
+            }
+            
             MovieDetailImage(imageLoader: imageLoader, imageURL: self.movie.backdropURL)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             

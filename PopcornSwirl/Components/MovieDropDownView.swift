@@ -24,7 +24,7 @@ struct MovieDropDownView: View {
                         .fontWeight(.bold)
                 } else {
                     Text(self.genre.name)
-                        .font(Font.custom("FjallaOne-Regular", size: 25))
+                        .font(Font.FjallaOne(size: 25))
                         .foregroundColor(Color.popcorn_white)
                         .padding(.leading)
                 }
