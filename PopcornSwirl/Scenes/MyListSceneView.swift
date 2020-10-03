@@ -13,12 +13,12 @@ struct MyListSceneView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
 
-    @FetchRequest(sortDescriptors: [],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MovieEntity.id, ascending: true)],
                   predicate: NSPredicate(format: "wishlisted = %@", NSNumber(value: true)),
                   animation: .default)
     var wishlistedData: FetchedResults<MovieEntity>
     
-    @FetchRequest(sortDescriptors: [],
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MovieEntity.id, ascending: true)],
                   predicate: NSPredicate(format: "watched = %@", NSNumber(value: true)),
         animation: .default)
     var watchedData: FetchedResults<MovieEntity>
