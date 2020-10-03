@@ -2,13 +2,19 @@
 //  MoviePosterView.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 30/08/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import SwiftUI
 
 struct MoviePosterView: View {
+    
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [],
+        animation: .default)
+    private var fetchedMovies: FetchedResults<MovieEntity>
     
     let movies: [Movie]
     
@@ -24,6 +30,3 @@ struct MoviePosterView: View {
         }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))
     }
 }
-
-
-

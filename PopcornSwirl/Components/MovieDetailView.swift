@@ -2,16 +2,14 @@
 //  MovieDetailView.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 30/08/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import SwiftUI
 import CoreData
 
-
 struct MovieDetailView: View {
-    
+
     @ObservedObject private var movieDetailState = MovieDetailState()
     
     let movieId: Int
@@ -24,45 +22,41 @@ struct MovieDetailView: View {
             
             if movieDetailState.movie != nil {
                 MovieDetailListView(movie: self.movieDetailState.movie!)
-                
             }
         }
         .navigationBarTitle(movieDetailState.movie?.title ?? "")
         .onAppear {
             self.movieDetailState.loadMovie(id: self.movieId)
             
-            
         }
     }
+    
 }
 
 struct MovieDetailListView: View {
     
-    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
-    @FetchRequest var currentFetch: FetchedResults<MovieEntity>
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
     
-    var newMovieEntity = MovieEntity()
+    @State var movieEntity = MovieEntity()
     
     @State private var selectedTrailer: MovieVideo?
     @State private var wish = false
     @State private var watch = false
-    @State private var note = ""
+    @State private var note = " "
     
-    let coreDataController = CoreDataController()
     let imageLoader = ImageLoader()
     
     let movie: Movie
     
     init(movie: Movie) {
         self.movie = movie
-        
-        
-        
+ 
         // Fetch movie from CoreData by Predicate with movie ID
         var predicate: NSPredicate?
-        predicate = NSPredicate(format: "movieID = %@",String(movie.id))
+        predicate = NSPredicate(format: "id = %@",String(movie.id))
         
-        self._currentFetch = FetchRequest(entity: MovieEntity.entity(), sortDescriptors: [], predicate: predicate)
+        self._fetchedMovies = FetchRequest(entity: MovieEntity.entity(), sortDescriptors: [], predicate: predicate)
         
     }
     
@@ -92,13 +86,10 @@ struct MovieDetailListView: View {
                 VStack {
                     Button(action: {
                         self.wish.toggle()
-                        
-                        if currentFetch.count != 0 && self.wish == true {
+                        if self.watch == true {
                             self.watch.toggle()
-                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: true, watched: false)
-                        } else if currentFetch.count != 0 {
-                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: currentFetch.first!.wishlisted ? false : true)
                         }
+                        updateCoreData()
                     })
                     {
                         ButtonText(
@@ -115,13 +106,10 @@ struct MovieDetailListView: View {
                 VStack {
                     Button(action: {
                         self.watch.toggle()
-                        print(currentFetch.first)
-                        if currentFetch.count != 0 && self.watch == true {
+                        if self.wish == true {
                             self.wish.toggle()
-                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, wishlisted: false, watched: true)
-                        } else if currentFetch.count != 0 {
-                            coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!, watched: currentFetch.first!.watched ? false : true)
                         }
+                        updateCoreData()
                     }) {
                         ButtonText(
                             text: self.watch ? "Watched" : "Mark as watched",
@@ -186,20 +174,6 @@ struct MovieDetailListView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.steam_gold, lineWidth: 1)
                         )
-                        .onChange(of: note) { value in
-                            if currentFetch.count != 0  {
-                                coreDataController.updateMovie(moc: self.moc, movie: currentFetch.first!,
-                                                               note: currentFetch.first!.note,
-                                                               wishlisted: currentFetch.first?.wishlisted,
-                                                               watched: currentFetch.first!.watched)
-                            }
-//                            else {
-//                                coreDataController.updateMovie(moc: self.moc, movie: newMovieEntity,
-//                                                               note: newMovieEntity.note,
-//                                                               wishlisted: newMovieEntity.wishlisted,
-//                                                               watched: newMovieEntity.watched)
-//                            }
-                        }
                     // invisible Text to secure TextEditor height size
                     Text(note)
                         .opacity(0)
@@ -226,21 +200,36 @@ struct MovieDetailListView: View {
         }
         .sheet(item: self.$selectedTrailer) { trailer in
             SafariView(url: trailer.youtubeURL!)
-        }.onAppear() {
-            print(self._currentFetch.wrappedValue)
+        }
+        .onAppear() {
             configure()
         }
+        .onDisappear() {
+            updateCoreData()
+        }
     }
-    
     func configure() {
+        if fetchedMovies.first != nil {
+            self.movieEntity = fetchedMovies.first!
+        } else {
+            self.movieEntity = MovieEntity(context: self.viewContext)
+            self.movieEntity.id = Int64(self.movie.id)
+        }
+        self.wish = self.movieEntity.wishlisted
+        self.watch = self.movieEntity.watched
+        self.note = self.movieEntity.note
         
-        self.wish = currentFetch.first?.wishlisted ?? false
-        self.watch = currentFetch.first?.watched ?? false
-        self.note = currentFetch.first?.note ?? ""
+    }
+    func updateCoreData() {
+        movieEntity.wishlisted = self.wish
+        movieEntity.watched = self.watch
+        movieEntity.note = self.note
         
-        if self.currentFetch.count == 0 {
-            print("Creating new CoreData Object")
-            coreDataController.saveMovie(moc: self.moc, movieID: self.movie.id, note: "", wishlisted: false, watched: false)
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
 }

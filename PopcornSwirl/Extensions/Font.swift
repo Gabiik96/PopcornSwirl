@@ -2,8 +2,7 @@
 //  Font.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 29/08/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import Foundation

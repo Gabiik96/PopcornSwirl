@@ -2,25 +2,26 @@
 //  MyListSceneView.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 30/08/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import SwiftUI
 import CoreData
 
+
 struct MyListSceneView: View {
     
-    @Environment(\.managedObjectContext) var moc: NSManagedObjectContext
-    @FetchRequest(entity: MovieEntity.entity(),
-                  sortDescriptors: [],
-                  predicate: NSPredicate(format: "wishlisted = %@", NSNumber(value: true))
-    ) var wishlistedData: FetchedResults<MovieEntity>
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(sortDescriptors: [],
+                  predicate: NSPredicate(format: "wishlisted = %@", NSNumber(value: true)),
+                  animation: .default)
+    var wishlistedData: FetchedResults<MovieEntity>
     
-    @FetchRequest(entity: MovieEntity.entity(),
-                  sortDescriptors: [],
-                  predicate: NSPredicate(format: "watched = %@", NSNumber(value: true))
-    ) var watchedData: FetchedResults<MovieEntity>
+    @FetchRequest(sortDescriptors: [],
+                  predicate: NSPredicate(format: "watched = %@", NSNumber(value: true)),
+        animation: .default)
+    var watchedData: FetchedResults<MovieEntity>
     
     @ObservedObject var wishlistedState = MovieDetailState()
     @ObservedObject var watchedState = MovieDetailState()
@@ -86,31 +87,17 @@ struct MyListSceneView: View {
         
         if wishlistedData.count != 0 {
             for data in wishlistedData {
-                self.wishlistedState.appendMovie(id: Int(data.movieID))
+                self.wishlistedState.appendMovie(id: Int(data.id))
                 
             }
         }
         
         if watchedData.count != 0 {
             for data in watchedData {
-                self.watchedState.appendMovie(id: Int(data.movieID))
+                self.watchedState.appendMovie(id: Int(data.id))
             }
         }
-    }
-    
-    func checkWish() {
-        if wishlistedData.count != 0 {
-            var moviesData = [Int]()
-            for data in wishlistedData {
-                moviesData.append(Int(data.movieID))
-            }
-            
-            wishlistedState.movies = wishlistedState.movies.filter {
-                moviesData.contains($0.id)
-            }
-        }
-        
-//        wishlistedState.
     }
 }
+
 

@@ -2,8 +2,7 @@
 //  GenreCarouselView.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 10/09/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import SwiftUI
@@ -49,7 +48,7 @@ struct GenreSectionView: View {
                     Image(systemName: "chevron.right")
                         .padding(.trailing)
                 }
-            }
+            }.navigationTitle(self.genre.name)
             VStack {
                 if moviesByGenreListState.movies != nil {
                     MoviePosterCarouselView(movies: moviesByGenreListState.movies!)

@@ -1,13 +1,11 @@
 //
-//  MoviesByGenreListState.swift
+//  MoviesByGenreListStae.swift
 //  PopcornSwirl
 //
-//  Created by Gabriel Balta on 10/09/2020.
-//  Copyright © 2020 Gabriel Balta. All rights reserved.
+//  Created by Gabriel Balta on 03/10/2020.
 //
 
 import Foundation
-import SwiftUI
 
 class MoviesByGenreListState: ObservableObject {
     
