@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		422DCBB02528FAD3000BA018 /* MovieDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */; };
 		426F45092528D20D00E6FCB6 /* PopcornSwirlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */; };
 		426F450B2528D20D00E6FCB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F450A2528D20D00E6FCB6 /* ContentView.swift */; };
 		426F450D2528D20E00E6FCB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426F450C2528D20E00E6FCB6 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDropDownView.swift; sourceTree = "<group>"; };
 		426F45052528D20D00E6FCB6 /* PopcornSwirl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornSwirl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornSwirlApp.swift; sourceTree = "<group>"; };
 		426F450A2528D20D00E6FCB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,6 +197,7 @@
 				426F45572528D6BA00E6FCB6 /* MovieDetailView.swift */,
 				426F454F2528D64E00E6FCB6 /* MoviePosterCarouselView.swift */,
 				426F45512528D66300E6FCB6 /* GenreCarouselView.swift */,
+				422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */,
 				426F45532528D68400E6FCB6 /* MoviePosterView.swift */,
 			);
 			path = Components;
@@ -317,6 +320,7 @@
 				426F45122528D20E00E6FCB6 /* Persistence.swift in Sources */,
 				426F45392528D4FA00E6FCB6 /* Movie.swift in Sources */,
 				426F45462528D5BD00E6FCB6 /* SafariView.swift in Sources */,
+				422DCBB02528FAD3000BA018 /* MovieDropDownView.swift in Sources */,
 				426F455A2528D6E800E6FCB6 /* ImageLoader.swift in Sources */,
 				426F45482528D5DE00E6FCB6 /* DividerGradient.swift in Sources */,
 				426F455E2528D71900E6FCB6 /* MovieSearchState.swift in Sources */,

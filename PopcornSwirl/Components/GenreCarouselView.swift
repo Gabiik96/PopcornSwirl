@@ -13,12 +13,12 @@ struct GenreCarouselView: View {
     
     var body: some View {
         VStack {
-            ScrollView {
+            ScrollView() {
                 if state.genres != nil {
                     ForEach(self.state.genres!) { genre in
-                        GenreSectionView(genre: genre)
-                            .frame(height : 200)
-                    }
+                        MovieDropDownView(genre: genre)
+//                            .frame(height : 200)
+                    }.padding()
                     
                 } else {
                     LoadingView(isLoading: state.isLoading, error: state.error) {
@@ -30,39 +30,7 @@ struct GenreCarouselView: View {
     }
 }
 
-struct GenreSectionView: View {
-    
-    @ObservedObject private var moviesByGenreListState = MoviesByGenreListState()
-    
-    let genre: Genres
-    
-    var body: some View {
-        VStack() {
-            NavigationLink(destination: MovieGridView(movies: moviesByGenreListState.movies ?? [Movie]())) {
-                HStack {
-                    Text(self.genre.name)
-                        .font(Font.custom("FjallaOne-Regular", size: 25))
-                        .foregroundColor(Color.popcorn_white)
-                        .padding(.leading)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .padding(.trailing)
-                }
-            }.navigationTitle(self.genre.name)
-            VStack {
-                if moviesByGenreListState.movies != nil {
-                    MoviePosterCarouselView(movies: moviesByGenreListState.movies!)
-                } else {
-                    LoadingView(isLoading: moviesByGenreListState.isLoading, error: moviesByGenreListState.error) {
-                        self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
-                    }
-                }
-            }.onAppear() {
-                self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
-            }
-        }
-    }
-}
+
 
 struct MovieGridView: View {
     

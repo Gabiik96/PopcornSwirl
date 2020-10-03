@@ -25,8 +25,6 @@ struct MoviePosterCarouselView: View {
                         }.sheet(isPresented: $showingDetail, content: {
                             MovieDetailView(movieId: movie.id)
                         })
-                            .padding(.leading, movie.id == self.movies.first!.id ? 15 : 0)
-                            .padding(.trailing, movie.id == self.movies.last!.id ? 15 : 0)
                     }
                 }
             }
