@@ -27,7 +27,6 @@ struct MyListSceneView: View {
     @ObservedObject var watchedState = MovieDetailState()
     
     @State private var pickerSelected = 0
-    @State var showingDetail = false
     
     private let layout = [GridItem(.adaptive(minimum: 150))]
     private let navBarTitles = ["Wishlisted", "Watched"]
@@ -46,14 +45,10 @@ struct MyListSceneView: View {
                     ScrollView {
                         LazyVGrid(columns: layout) {
                             ForEach(wishlistedState.movies) { movie in
-                                Button(action: {
-                                    self.showingDetail.toggle()
-                                }) {
+                                NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
                                     MoviePosterCard(movie: movie)
-                                }.sheet(isPresented: $showingDetail, content: {
-                                    MovieDetailView(movieId: movie.id)
-                                        .onDisappear() { self.configure() }
-                                })
+                                        
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding()
                     }
@@ -61,14 +56,9 @@ struct MyListSceneView: View {
                     ScrollView {
                         LazyVGrid(columns: layout) {
                             ForEach(watchedState.movies, id: \.id) { movie in
-                                Button(action: {
-                                    self.showingDetail.toggle()
-                                }) {
+                                NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
                                     MoviePosterCard(movie: movie)
-                                }.sheet(isPresented: $showingDetail, content: {
-                                    MovieDetailView(movieId: movie.id)
-                                        .onDisappear() { self.configure() }
-                                })
+                                }.buttonStyle(PlainButtonStyle())
                             }
                         }.padding()
                     }

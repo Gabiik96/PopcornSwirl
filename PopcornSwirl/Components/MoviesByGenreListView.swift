@@ -13,18 +13,18 @@ struct MoviesByGenreListView: View {
     
     var body: some View {
         List {
-        if state.genres != nil {
-            ForEach(self.state.genres!) { genre in
-                MovieDropDownView(genre: genre)
-            }.listRowBackground(Color.black)
-        } else {
-            LoadingView(isLoading: state.isLoading, error: state.error) {
-                self.state.loadGenres()
+            if state.genres != nil {
+                ForEach(self.state.genres!) { genre in
+                    MovieDropDownView(genre: genre)
+                }.listRowBackground(Color.black)
+            } else {
+                LoadingView(isLoading: state.isLoading, error: state.error) {
+                    self.state.loadGenres()
+                }
             }
         }
-        }
-    .listStyle(SidebarListStyle())
-    .padding(-5)
+        .listStyle(SidebarListStyle())
+        .padding(-5)
     }
 }
 

@@ -173,15 +173,17 @@ struct MovieDetailListView: View {
                     .foregroundColor(.popcorn_gold)
                     .padding(.bottom, 1)
                 ZStack {
+                    // invisible Text to secure TextEditor height size
+                    Text(note)
+                        .opacity(0)
+                    
                     TextEditor(text: $note)
+                        .frame(minHeight: 30)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.popcorn_gold, lineWidth: 1)
                         )
-                    // invisible Text to secure TextEditor height size
-                    Text(note)
-                        .opacity(0)
-                }
+                }.onDisappear() { updateCoreData() }
             }
             
             if self.movie.genres?.first?.name != nil {
