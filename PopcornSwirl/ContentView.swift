@@ -46,7 +46,6 @@ struct ContentView: View {
     
     private func setupApperance() {
         
-        UITableView.appearance().separatorStyle = .none
         
         //NavBar appearance setup
         UINavigationBar.appearance().largeTitleTextAttributes = [

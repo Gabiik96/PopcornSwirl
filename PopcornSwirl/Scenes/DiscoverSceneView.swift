@@ -20,16 +20,20 @@ struct DiscoverSceneView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
+            VStack {
                 SearchBarView(text: self.$movieSearchState.query)
                 DividerGradient()
                 Spacer()
+            
                 if movieSearchState.query.count > 0 {
                     if movieSearchState.movies != nil {
                         MoviePosterView(movies: movieSearchState.movies!)
                     }
+                
                 } else {
-                    MoviesByGenreListView()
+                   
+                        MoviesByGenreListView()
+                    
                 }
             }.navigationBarTitle("Discover")
         }.onAppear() {

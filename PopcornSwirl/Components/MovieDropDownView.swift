@@ -9,6 +9,10 @@ import SwiftUI
 
 struct MovieDropDownView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
+    
     @ObservedObject private var moviesByGenreListState = MoviesByGenreListState()
     
     @State var expand = false
@@ -17,7 +21,8 @@ struct MovieDropDownView: View {
     var title: String?
     
     var body: some View {
-        VStack() {
+        VStack {
+            
             HStack {
                 if self.title != nil {
                     Text(self.title!)
@@ -25,12 +30,10 @@ struct MovieDropDownView: View {
                 } else {
                     Text(self.genre.name)
                         .font(Font.FjallaOne(size: 25))
-                        .foregroundColor(Color.popcorn_white)
-                        .padding(.leading)
+                        .foregroundColor(Color.popcorn_gold)
                 }
                 Spacer()
                 Image(systemName: expand ? "chevron.up" : "chevron.down")
-                    .padding(.trailing)
             }.onTapGesture {
                 self.expand.toggle()
             }
@@ -48,11 +51,10 @@ struct MovieDropDownView: View {
                     }
                 }
                 .animation(.easeInOut)
-                .onAppear() {
-                    self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
-                }
             }
+            
+        }.onAppear() {
+            self.moviesByGenreListState.searchMoviesByGenre(genreId: self.genre.id)
         }
     }
-    
 }

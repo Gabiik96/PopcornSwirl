@@ -25,15 +25,13 @@ struct MoviePosterCard: View {
                     Rectangle()
                         .fill(Color.gray.opacity(0.3))
                         .cornerRadius(8)
-                    
+                        .onAppear {
+                            self.imageLoader.loadImage(with: self.movie.posterURL)
+                        }
                     Text(movie.title)
                         .multilineTextAlignment(.center)
                 }
             }
             .frame(minWidth: 100, maxWidth: 500, minHeight: 150, maxHeight: 750, alignment: .center)
-            .onAppear {
-                self.imageLoader.loadImage(with: self.movie.posterURL)
-            }
-
     }
 }

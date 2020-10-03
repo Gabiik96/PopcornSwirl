@@ -8,27 +8,24 @@
 import SwiftUI
 
 struct MoviePosterCarouselView: View {
-
-    @State var showingDetail = false
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(sortDescriptors: [], animation: .default)
+    private var fetchedMovies: FetchedResults<MovieEntity>
     
     let movies: [Movie]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 15) {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 15) {
-                    ForEach(self.movies) { movie in
-                        Button(action: {
-                            self.showingDetail.toggle()
-                        }) {
-                            MoviePosterCard(movie: movie)
-                        }.sheet(isPresented: $showingDetail, content: {
-                            MovieDetailView(movieId: movie.id)
-                        })
-                    }
+        
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .top, spacing: 15) {
+                ForEach(self.movies) { movie in
+                    NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                        MoviePosterCard(movie: movie)
+                    }.buttonStyle(PlainButtonStyle())
                 }
             }
         }
-        
     }
 }

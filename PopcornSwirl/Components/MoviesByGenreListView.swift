@@ -12,20 +12,19 @@ struct MoviesByGenreListView: View {
     @EnvironmentObject var state: GenreListState
     
     var body: some View {
-        VStack {
-            ScrollView() {
-                if state.genres != nil {
-                    ForEach(self.state.genres!) { genre in
-                        MovieDropDownView(genre: genre)
-                    }.padding()
-                    
-                } else {
-                    LoadingView(isLoading: state.isLoading, error: state.error) {
-                        self.state.loadGenres()
-                    }
-                }
+        List {
+        if state.genres != nil {
+            ForEach(self.state.genres!) { genre in
+                MovieDropDownView(genre: genre)
+            }.listRowBackground(Color.black)
+        } else {
+            LoadingView(isLoading: state.isLoading, error: state.error) {
+                self.state.loadGenres()
             }
         }
+        }
+    .listStyle(SidebarListStyle())
+    .padding(-5)
     }
 }
 

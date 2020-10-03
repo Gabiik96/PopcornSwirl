@@ -11,7 +11,7 @@ import CoreData
 struct MovieDetailView: View {
     
     @EnvironmentObject var state: GenreListState
-
+    
     @ObservedObject private var movieDetailState = MovieDetailState()
     
     let movieId: Int
@@ -40,7 +40,6 @@ struct MovieDetailView: View {
 struct MovieDetailListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-
     
     @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
     
@@ -71,14 +70,6 @@ struct MovieDetailListView: View {
     
     var body: some View {
         List {
-            HStack {
-                Spacer()
-                Text(movie.title)
-                    .font(Font.FjallaOne(size: 40))
-                    .foregroundColor(.popcorn_gold)
-                Spacer()
-            }
-            
             MovieDetailImage(imageLoader: imageLoader, imageURL: self.movie.backdropURL)
                 .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             
@@ -96,7 +87,6 @@ struct MovieDetailListView: View {
                         + Text(movie.restOfRating).foregroundColor(.gray)
                 }
                 Text(movie.scoreText)
-                
             }
             
             HStack {
@@ -115,7 +105,6 @@ struct MovieDetailListView: View {
                             fillColor: self.wish ? .popcorn_red : .popcorn_gray
                         )
                     }.buttonStyle(BorderlessButtonStyle())
-                    
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 
@@ -134,7 +123,6 @@ struct MovieDetailListView: View {
                             fillColor: self.watch ? .popcorn_green : .popcorn_gray
                         )
                     }.buttonStyle(BorderlessButtonStyle())
-                    
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
@@ -149,7 +137,6 @@ struct MovieDetailListView: View {
                     }
                     .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                     Spacer()
-                    
                 }
                 
                 if movie.crew != nil && movie.crew!.count > 0 {
@@ -198,8 +185,8 @@ struct MovieDetailListView: View {
             }
             
             if self.movie.genres?.first?.name != nil {
-                    MovieDropDownView(genre: allGenres.filter{$0.name == self.movie.genres!.first!.name}.first!, title: "Similar movies")
-                }
+                MovieDropDownView(genre: allGenres.filter{$0.name == self.movie.genres!.first!.name}.first!, title: "Similar movies")
+            }
             
             if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
                 Text("Trailers").font(.headline)
@@ -263,16 +250,17 @@ struct MovieDetailImage: View {
     
     var body: some View {
         ZStack {
-            Rectangle().fill(Color.gray.opacity(0.3))
-            if self.imageLoader.image != nil {
+            if self.imageLoader.image == nil {
+                Rectangle().fill(Color.gray.opacity(0.3))
+                    .onAppear() {
+                        self.imageLoader.loadImage(with: self.imageURL)
+                    }
+            } else if self.imageLoader.image != nil {
                 Image(uiImage: self.imageLoader.image!)
                     .resizable()
             }
         }
         .aspectRatio(16/9, contentMode: .fit)
-        .onAppear {
-            self.imageLoader.loadImage(with: self.imageURL)
-        }
     }
 }
 
