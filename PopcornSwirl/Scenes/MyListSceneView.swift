@@ -27,6 +27,7 @@ struct MyListSceneView: View {
     @ObservedObject var watchedState = MovieDetailState()
     
     @State private var pickerSelected = 0
+    @State var showingDetail = false
     
     private let layout = [GridItem(.adaptive(minimum: 150))]
     private let navBarTitles = ["Wishlisted", "Watched"]
@@ -45,13 +46,14 @@ struct MyListSceneView: View {
                     ScrollView {
                         LazyVGrid(columns: layout) {
                             ForEach(wishlistedState.movies) { movie in
-                                NavigationLink(destination:
-                                                MovieDetailView(movieId: movie.id)
-                                                .transition(.opacity)
-                                                .onDisappear() { self.configure() }
-                                ) {
+                                Button(action: {
+                                    self.showingDetail.toggle()
+                                }) {
                                     MoviePosterCard(movie: movie)
-                                }.buttonStyle(PlainButtonStyle())
+                                }.sheet(isPresented: $showingDetail, content: {
+                                    MovieDetailView(movieId: movie.id)
+                                        .onDisappear() { self.configure() }
+                                })
                             }
                         }.padding()
                     }
@@ -59,13 +61,14 @@ struct MyListSceneView: View {
                     ScrollView {
                         LazyVGrid(columns: layout) {
                             ForEach(watchedState.movies, id: \.id) { movie in
-                                NavigationLink(destination:
-                                                MovieDetailView(movieId: movie.id)
-                                                .onDisappear() { self.configure() }
-                                ) {
+                                Button(action: {
+                                    self.showingDetail.toggle()
+                                }) {
                                     MoviePosterCard(movie: movie)
-                                }.buttonStyle(PlainButtonStyle())
-                                .transition(.asymmetric(insertion: .scale, removal: .slide))
+                                }.sheet(isPresented: $showingDetail, content: {
+                                    MovieDetailView(movieId: movie.id)
+                                        .onDisappear() { self.configure() }
+                                })
                             }
                         }.padding()
                     }

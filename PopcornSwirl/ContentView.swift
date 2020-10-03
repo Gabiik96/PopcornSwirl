@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
         }
         .onAppear() { setupApperance() }
-        .accentColor(Color.steam_gold)
+        .accentColor(Color.popcorn_gold)
     }
     
     //MARK: - Functions
@@ -50,19 +50,19 @@ struct ContentView: View {
         
         //NavBar appearance setup
         UINavigationBar.appearance().largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
+            NSAttributedString.Key.foregroundColor: UIColor(named: "popcorn_gold")!,
             NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 40)!]
         
         UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
+            NSAttributedString.Key.foregroundColor: UIColor(named: "popcorn_gold")!,
             NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 18)!]
         
         UIBarButtonItem.appearance().setTitleTextAttributes([
-            NSAttributedString.Key.foregroundColor: UIColor(named: "steam_gold")!,
+            NSAttributedString.Key.foregroundColor: UIColor(named: "popcorn_gold")!,
             NSAttributedString.Key.font: UIFont(name: "FjallaOne-Regular", size: 16)!],
                                                             for: .normal)
         
-        UIWindow.appearance().tintColor = UIColor(named: "steam_gold")
+        UIWindow.appearance().tintColor = UIColor(named: "popcorn_gold")
     }
 
     private func addItem() {

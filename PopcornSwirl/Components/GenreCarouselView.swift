@@ -42,7 +42,7 @@ struct GenreSectionView: View {
                 HStack {
                     Text(self.genre.name)
                         .font(Font.custom("FjallaOne-Regular", size: 25))
-                        .foregroundColor(Color.steam_white)
+                        .foregroundColor(Color.popcorn_white)
                         .padding(.leading)
                     Spacer()
                     Image(systemName: "chevron.right")
@@ -66,6 +66,7 @@ struct GenreSectionView: View {
 
 struct MovieGridView: View {
     
+    @State var showingDetail = false
     @State var movies: [Movie] = [Movie]()
     
     let layout = [GridItem(.adaptive(minimum: 150))]
@@ -74,10 +75,13 @@ struct MovieGridView: View {
         ScrollView {
             LazyVGrid(columns: layout) {
                 ForEach(movies) { movie in
-                    NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                    Button(action: {
+                        self.showingDetail.toggle()
+                    }) {
                         MoviePosterCard(movie: movie)
-                            
-                    }.buttonStyle(PlainButtonStyle())
+                    }.sheet(isPresented: $showingDetail, content: {
+                        MovieDetailView(movieId: movie.id)
+                    })
                 }
             }.padding()
         }

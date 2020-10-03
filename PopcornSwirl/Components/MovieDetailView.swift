@@ -94,8 +94,8 @@ struct MovieDetailListView: View {
                     {
                         ButtonText(
                             text: self.wish ? "Wishlisted" : "Add to wishlist",
-                            foregroundColor: self.wish ? .black : .steam_red,
-                            fillColor: self.wish ? .steam_red : .black
+                            foregroundColor: self.wish ? .black : .popcorn_red,
+                            fillColor: self.wish ? .popcorn_red : .popcorn_gray
                         )
                     }.buttonStyle(BorderlessButtonStyle())
                     
@@ -113,8 +113,8 @@ struct MovieDetailListView: View {
                     }) {
                         ButtonText(
                             text: self.watch ? "Watched" : "Mark as watched",
-                            foregroundColor: self.watch ? .black : .steam_green,
-                            fillColor: self.watch ? .steam_green : .black
+                            foregroundColor: self.watch ? .black : .popcorn_green,
+                            fillColor: self.watch ? .popcorn_green : .popcorn_gray
                         )
                     }.buttonStyle(BorderlessButtonStyle())
                     
@@ -166,13 +166,13 @@ struct MovieDetailListView: View {
             
             VStack {
                 Text("Notes")
-                    .foregroundColor(.steam_gold)
+                    .foregroundColor(.popcorn_gold)
                     .padding(.bottom, 1)
                 ZStack {
                     TextEditor(text: $note)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.steam_gold, lineWidth: 1)
+                                .stroke(Color.popcorn_gold, lineWidth: 1)
                         )
                     // invisible Text to secure TextEditor height size
                     Text(note)
@@ -203,9 +203,6 @@ struct MovieDetailListView: View {
         }
         .onAppear() {
             configure()
-        }
-        .onDisappear() {
-            updateCoreData()
         }
     }
     func configure() {

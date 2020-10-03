@@ -9,12 +9,7 @@ import SwiftUI
 
 struct MoviePosterView: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [],
-        animation: .default)
-    private var fetchedMovies: FetchedResults<MovieEntity>
+    @State var showingDetail = false
     
     let movies: [Movie]
     
@@ -22,9 +17,13 @@ struct MoviePosterView: View {
         
         ScrollView() {
             ForEach(self.movies) { movie in
-                NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                Button(action: {
+                    self.showingDetail.toggle()
+                }) {
                     MoviePosterCard(movie: movie)
-                }.buttonStyle(PlainButtonStyle())
+                }.sheet(isPresented: $showingDetail, content: {
+                    MovieDetailView(movieId: movie.id)
+                })
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }
         }.padding(EdgeInsets(top: 10, leading: 20, bottom: 0, trailing: 20))

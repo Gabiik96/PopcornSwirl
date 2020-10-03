@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MoviePosterCarouselView: View {
 
+    @State var showingDetail = false
+    
     let movies: [Movie]
     
     var body: some View {
@@ -16,9 +18,13 @@ struct MoviePosterCarouselView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .top, spacing: 15) {
                     ForEach(self.movies) { movie in
-                        NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
+                        Button(action: {
+                            self.showingDetail.toggle()
+                        }) {
                             MoviePosterCard(movie: movie)
-                        }.buttonStyle(PlainButtonStyle())
+                        }.sheet(isPresented: $showingDetail, content: {
+                            MovieDetailView(movieId: movie.id)
+                        })
                             .padding(.leading, movie.id == self.movies.first!.id ? 15 : 0)
                             .padding(.trailing, movie.id == self.movies.last!.id ? 15 : 0)
                     }
