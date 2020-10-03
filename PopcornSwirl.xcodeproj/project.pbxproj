@@ -35,7 +35,7 @@
 		426F454C2528D60800E6FCB6 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F454B2528D60800E6FCB6 /* SearchBarView.swift */; };
 		426F454E2528D62100E6FCB6 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F454D2528D62100E6FCB6 /* LoadingView.swift */; };
 		426F45502528D64E00E6FCB6 /* MoviePosterCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F454F2528D64E00E6FCB6 /* MoviePosterCarouselView.swift */; };
-		426F45522528D66300E6FCB6 /* GenreCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45512528D66300E6FCB6 /* GenreCarouselView.swift */; };
+		426F45522528D66300E6FCB6 /* MoviesByGenreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45512528D66300E6FCB6 /* MoviesByGenreListView.swift */; };
 		426F45542528D68400E6FCB6 /* MoviePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45532528D68400E6FCB6 /* MoviePosterView.swift */; };
 		426F45562528D69A00E6FCB6 /* MoviePosterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45552528D69A00E6FCB6 /* MoviePosterCard.swift */; };
 		426F45582528D6BA00E6FCB6 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45572528D6BA00E6FCB6 /* MovieDetailView.swift */; };
@@ -78,7 +78,7 @@
 		426F454B2528D60800E6FCB6 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		426F454D2528D62100E6FCB6 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		426F454F2528D64E00E6FCB6 /* MoviePosterCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCarouselView.swift; sourceTree = "<group>"; };
-		426F45512528D66300E6FCB6 /* GenreCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreCarouselView.swift; sourceTree = "<group>"; };
+		426F45512528D66300E6FCB6 /* MoviesByGenreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesByGenreListView.swift; sourceTree = "<group>"; };
 		426F45532528D68400E6FCB6 /* MoviePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterView.swift; sourceTree = "<group>"; };
 		426F45552528D69A00E6FCB6 /* MoviePosterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCard.swift; sourceTree = "<group>"; };
 		426F45572528D6BA00E6FCB6 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 				426F45552528D69A00E6FCB6 /* MoviePosterCard.swift */,
 				426F45572528D6BA00E6FCB6 /* MovieDetailView.swift */,
 				426F454F2528D64E00E6FCB6 /* MoviePosterCarouselView.swift */,
-				426F45512528D66300E6FCB6 /* GenreCarouselView.swift */,
+				426F45512528D66300E6FCB6 /* MoviesByGenreListView.swift */,
 				422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */,
 				426F45532528D68400E6FCB6 /* MoviePosterView.swift */,
 			);
@@ -343,7 +343,7 @@
 				426F453B2528D51300E6FCB6 /* Genre.swift in Sources */,
 				426F455C2528D70400E6FCB6 /* MovieDetailState.swift in Sources */,
 				426F45582528D6BA00E6FCB6 /* MovieDetailView.swift in Sources */,
-				426F45522528D66300E6FCB6 /* GenreCarouselView.swift in Sources */,
+				426F45522528D66300E6FCB6 /* MoviesByGenreListView.swift in Sources */,
 				426F45372528D4E100E6FCB6 /* NetworkingService.swift in Sources */,
 				426F45262528D38200E6FCB6 /* MovieEntity+CoreDataClass.swift in Sources */,
 				426F45272528D38200E6FCB6 /* MovieEntity+CoreDataProperties.swift in Sources */,

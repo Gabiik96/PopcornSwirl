@@ -29,7 +29,7 @@ struct DiscoverSceneView: View {
                         MoviePosterView(movies: movieSearchState.movies!)
                     }
                 } else {
-                    GenreCarouselView()
+                    MoviesByGenreListView()
                 }
             }.navigationBarTitle("Discover")
         }.onAppear() {

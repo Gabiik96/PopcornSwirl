@@ -9,6 +9,8 @@ import SwiftUI
 import CoreData
 
 struct MovieDetailView: View {
+    
+    @EnvironmentObject var state: GenreListState
 
     @ObservedObject private var movieDetailState = MovieDetailState()
     
@@ -19,15 +21,17 @@ struct MovieDetailView: View {
             LoadingView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error) {
                 self.movieDetailState.loadMovie(id: self.movieId)
             }
-            
-            if movieDetailState.movie != nil {
-                MovieDetailListView(movie: self.movieDetailState.movie!)
+            LoadingView(isLoading: self.state.isLoading, error: self.state.error) {
+                self.state.loadGenres()
+            }
+            if movieDetailState.movie != nil && state.genres != nil {
+                MovieDetailListView(movie: self.movieDetailState.movie!, genres: state.genres!)
             }
         }
         .navigationBarTitle(movieDetailState.movie?.title ?? "")
         .onAppear {
             self.movieDetailState.loadMovie(id: self.movieId)
-            
+            self.state.loadGenres()
         }
     }
     
@@ -36,9 +40,13 @@ struct MovieDetailView: View {
 struct MovieDetailListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+
+    
     @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
     
     @State var movieEntity = MovieEntity()
+    let allGenres: [Genres]
+    var genre: Genres?
     
     @State private var selectedTrailer: MovieVideo?
     @State private var wish = false
@@ -49,9 +57,10 @@ struct MovieDetailListView: View {
     
     let movie: Movie
     
-    init(movie: Movie) {
+    init(movie: Movie, genres: [Genres]) {
         self.movie = movie
- 
+        self.allGenres = genres
+        
         // Fetch movie from CoreData by Predicate with movie ID
         var predicate: NSPredicate?
         predicate = NSPredicate(format: "id = %@",String(movie.id))
@@ -180,6 +189,9 @@ struct MovieDetailListView: View {
                 }
             }
             
+            if self.movie.genres?.first?.name != nil {
+                    MovieDropDownView(genre: allGenres.filter{$0.name == self.movie.genres!.first!.name}.first!, title: "Similar movies")
+                }
             
             if movie.youtubeTrailers != nil && movie.youtubeTrailers!.count > 0 {
                 Text("Trailers").font(.headline)
@@ -204,7 +216,11 @@ struct MovieDetailListView: View {
         .onAppear() {
             configure()
         }
+        
     }
+    
+    //MARK: - Functions
+    
     func configure() {
         if fetchedMovies.first != nil {
             self.movieEntity = fetchedMovies.first!
@@ -215,8 +231,8 @@ struct MovieDetailListView: View {
         self.wish = self.movieEntity.wishlisted
         self.watch = self.movieEntity.watched
         self.note = self.movieEntity.note
-        
     }
+    
     func updateCoreData() {
         movieEntity.wishlisted = self.wish
         movieEntity.watched = self.watch
@@ -229,6 +245,7 @@ struct MovieDetailListView: View {
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
     }
+    
 }
 
 struct MovieDetailImage: View {

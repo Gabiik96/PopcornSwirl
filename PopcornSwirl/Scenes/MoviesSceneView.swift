@@ -10,6 +10,7 @@ import SwiftUI
 struct MoviesSceneView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var genreListState: GenreListState
 
     @FetchRequest(
         sortDescriptors: [],
@@ -45,6 +46,7 @@ struct MoviesSceneView: View {
                 }
             }.navigationBarTitle(navBarTitles[pickerSelected])
         }.onAppear {
+            self.genreListState.loadGenres()
             self.popularState.loadMovies(with: .popular)
             self.topRatedState.loadMovies(with: .topRated)
             self.upcomingState.loadMovies(with: .upcoming)

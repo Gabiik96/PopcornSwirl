@@ -29,28 +29,3 @@ struct MoviesByGenreListView: View {
     }
 }
 
-
-
-struct MovieGridView: View {
-    
-    @State var showingDetail = false
-    @State var movies: [Movie] = [Movie]()
-    
-    let layout = [GridItem(.adaptive(minimum: 150))]
-    
-    var body: some View {
-        ScrollView {
-            LazyVGrid(columns: layout) {
-                ForEach(movies) { movie in
-                    Button(action: {
-                        self.showingDetail.toggle()
-                    }) {
-                        MoviePosterCard(movie: movie)
-                    }.sheet(isPresented: $showingDetail, content: {
-                        MovieDetailView(movieId: movie.id)
-                    })
-                }
-            }.padding()
-        }
-    }
-}
