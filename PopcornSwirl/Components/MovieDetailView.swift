@@ -40,6 +40,7 @@ struct MovieDetailView: View {
 struct MovieDetailListView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.openURL) var openURL
     
     @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
     
@@ -51,15 +52,17 @@ struct MovieDetailListView: View {
     @State private var wish = false
     @State private var watch = false
     @State private var note = " "
+    @State private var buyURL: URL?
     
     let imageLoader = ImageLoader()
     
     let movie: Movie
+
+    
     
     init(movie: Movie, genres: [Genres]) {
         self.movie = movie
         self.allGenres = genres
-        
         // Fetch movie from CoreData by Predicate with movie ID
         var predicate: NSPredicate?
         predicate = NSPredicate(format: "id = %@",String(movie.id))
@@ -78,6 +81,17 @@ struct MovieDetailListView: View {
                 Text("·")
                 Text(movie.yearText)
                 Text(movie.durationText)
+                
+                Spacer()
+                
+                Button(action: {
+                    openURL(buyURL!)
+                }) {
+                    ButtonText(text: "Buy", foregroundColor: .popcorn_black, fillColor: .popcorn_gold)
+                }
+                .frame(width: 100, height: 30)
+                .buttonStyle(BorderlessButtonStyle())
+                
             }
             
             Text(movie.overview)
@@ -104,7 +118,9 @@ struct MovieDetailListView: View {
                             foregroundColor: self.wish ? .black : .popcorn_red,
                             fillColor: self.wish ? .popcorn_red : .popcorn_gray
                         )
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }
+                    .frame(minWidth: 100, maxWidth: 200, minHeight: 30, maxHeight: 40)
+                    .buttonStyle(BorderlessButtonStyle())
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 
@@ -122,7 +138,9 @@ struct MovieDetailListView: View {
                             foregroundColor: self.watch ? .black : .popcorn_green,
                             fillColor: self.watch ? .popcorn_green : .popcorn_gray
                         )
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }
+                    .frame(minWidth: 100, maxWidth: 200, minHeight: 30, maxHeight: 40)
+                    .buttonStyle(BorderlessButtonStyle())
                 }.frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
@@ -219,6 +237,14 @@ struct MovieDetailListView: View {
     //MARK: - Functions
     
     func configure() {
+        
+        // Preparing URL search string for purchasing movie -> Getting rid of whitespaces if there is any
+        let formattedTitle = self.movie.title.replacingOccurrences(of: " ", with: "")
+        let urlString = "https://www.amazon.co.uk/s?k=\(formattedTitle)&i=instant-video&ref=nb_sb_noss_1"
+        print(formattedTitle)
+        self.buyURL = URL(string: urlString)!
+
+        // CoreData configuration with current movie
         if fetchedMovies.first != nil {
             self.movieEntity = fetchedMovies.first!
         } else {
@@ -230,6 +256,7 @@ struct MovieDetailListView: View {
         self.note = self.movieEntity.note
     }
     
+    /// updates current movie coredata model
     func updateCoreData() {
         movieEntity.wishlisted = self.wish
         movieEntity.watched = self.watch

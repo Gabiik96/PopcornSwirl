@@ -55,7 +55,7 @@ struct Movie: Decodable, Identifiable, Hashable {
     var posterURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
     }
-    
+  
     var genreText: String {
         genres?.first?.name ?? "Unknown"
     }
