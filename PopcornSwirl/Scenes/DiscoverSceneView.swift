@@ -11,6 +11,7 @@ import CoreData
 struct DiscoverSceneView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var orientationInfo: OrientationInfo
     @EnvironmentObject var genreListState: GenreListState
     
     @FetchRequest(sortDescriptors: [], animation: .default)
@@ -19,29 +20,60 @@ struct DiscoverSceneView: View {
     @ObservedObject var movieSearchState = MovieSearchState()
     
     var body: some View {
+        
         NavigationView {
-            VStack {
-                Banner()
-                SearchBarView(text: self.$movieSearchState.query)
-                DividerGradient()
-                Spacer()
-            
-                if movieSearchState.query.count > 0 {
-                    if movieSearchState.movies != nil {
-                        MoviePosterView(movies: movieSearchState.movies!)
+            Group {
+                //MARK: PORTRAIT MODE
+                if orientationInfo.orientation == .portrait {
+                    VStack {
+                        header
+                        DividerGradient()
+                        Spacer()
+                        
+                        if movieSearchState.query.count > 0 {
+                            if movieSearchState.movies != nil {
+                                MoviePosterView(movies: movieSearchState.movies!)
+                            }
+                        } else {
+                            MoviesByGenreListView()
+                        }
                     }
-                
+                    //MARK: LANDSCAPE MODE
                 } else {
-                   
-                        MoviesByGenreListView()
+                    VStack {
+                        HStack {
+                            header
+                        }
+                        DividerGradient()
+                        Spacer()
+                        
+                        if movieSearchState.query.count > 0 {
+                            if movieSearchState.movies != nil {
+                                MoviePosterCarouselDetailView(movies: movieSearchState.movies!)
+                            }
+                        } else {
+                            MoviesByGenreListView()
+                        }
+                    }
                     
                 }
+                
             }.navigationBarTitle("Discover")
-        }.onAppear() {
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear() {
             self.genreListState.loadGenres()
             self.movieSearchState.startObserve()
         }
     }
+    
+    private var header: some View {
+        Group {
+            Banner()
+            Spacer()
+            SearchBarView(text: self.$movieSearchState.query)
+        }
+    }
+    
 }
-
 

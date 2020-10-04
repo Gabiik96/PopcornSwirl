@@ -38,11 +38,13 @@ struct MovieDropDownView: View {
                 self.expand.toggle()
             }
             
+            // Attached Views which will be showns when row will be tapped to be expanded
             if expand {
                 VStack {
                     if moviesByGenreListState.movies != nil {
-                        MoviePosterCarouselView(movies: moviesByGenreListState.movies!)
+                        MoviePosterCarouselDetailView(movies: moviesByGenreListState.movies!)
                             .frame(height: 200)
+                            .edgesIgnoringSafeArea(.all)
                         
                     } else {
                         LoadingView(isLoading: moviesByGenreListState.isLoading, error: moviesByGenreListState.error) {

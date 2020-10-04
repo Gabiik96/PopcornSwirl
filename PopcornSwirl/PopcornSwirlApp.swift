@@ -13,12 +13,14 @@ struct PopcornSwirlApp: App {
     
     let persistenceController = PersistenceController.shared
     let genreListState = GenreListState()
+    let orientationInfo = OrientationInfo()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(genreListState)
+                .environmentObject(orientationInfo)
         }
     }
 }

@@ -15,6 +15,8 @@
 		420EBBC9252944CA0083FF7F /* UserMessagingPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBC3252944CA0083FF7F /* UserMessagingPlatform.framework */; };
 		422DCBB02528FAD3000BA018 /* MovieDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */; };
 		4234169E25294754005CDD75 /* BannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4234169D25294754005CDD75 /* BannerVC.swift */; };
+		423416A02529F223005CDD75 /* OrientationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4234169F2529F223005CDD75 /* OrientationInfo.swift */; };
+		423416A22529F906005CDD75 /* PopularityBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423416A12529F906005CDD75 /* PopularityBadge.swift */; };
 		426F45092528D20D00E6FCB6 /* PopcornSwirlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */; };
 		426F450B2528D20D00E6FCB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F450A2528D20D00E6FCB6 /* ContentView.swift */; };
 		426F450D2528D20E00E6FCB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426F450C2528D20E00E6FCB6 /* Assets.xcassets */; };
@@ -63,6 +65,8 @@
 		420EBBC3252944CA0083FF7F /* UserMessagingPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UserMessagingPlatform.framework; sourceTree = "<group>"; };
 		422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDropDownView.swift; sourceTree = "<group>"; };
 		4234169D25294754005CDD75 /* BannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerVC.swift; sourceTree = "<group>"; };
+		4234169F2529F223005CDD75 /* OrientationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationInfo.swift; sourceTree = "<group>"; };
+		423416A12529F906005CDD75 /* PopularityBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularityBadge.swift; sourceTree = "<group>"; };
 		426F45052528D20D00E6FCB6 /* PopcornSwirl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornSwirl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornSwirlApp.swift; sourceTree = "<group>"; };
 		426F450A2528D20D00E6FCB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 				426F455F2528D73900E6FCB6 /* GenreListState.swift */,
 				426F45612528D76200E6FCB6 /* MoviesByGenreListState.swift */,
 				426F45632528D77A00E6FCB6 /* MovieListState.swift */,
+				4234169F2529F223005CDD75 /* OrientationInfo.swift */,
 			);
 			path = Bindings;
 			sourceTree = "<group>";
@@ -216,8 +221,8 @@
 		426F45292528D43200E6FCB6 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				426F453E2528D54C00E6FCB6 /* DiscoverSceneView.swift */,
 				426F45422528D59C00E6FCB6 /* MoviesSceneView.swift */,
+				426F453E2528D54C00E6FCB6 /* DiscoverSceneView.swift */,
 				426F45402528D56F00E6FCB6 /* MyListSceneView.swift */,
 			);
 			path = Scenes;
@@ -274,6 +279,7 @@
 				426F45492528D5F400E6FCB6 /* AcitivityIndicatorView.swift */,
 				426F454B2528D60800E6FCB6 /* SearchBarView.swift */,
 				426F454D2528D62100E6FCB6 /* LoadingView.swift */,
+				423416A12529F906005CDD75 /* PopularityBadge.swift */,
 			);
 			path = Customs;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 				426F454E2528D62100E6FCB6 /* LoadingView.swift in Sources */,
 				426F450B2528D20D00E6FCB6 /* ContentView.swift in Sources */,
 				426F45622528D76200E6FCB6 /* MoviesByGenreListState.swift in Sources */,
+				423416A22529F906005CDD75 /* PopularityBadge.swift in Sources */,
 				426F45412528D56F00E6FCB6 /* MyListSceneView.swift in Sources */,
 				426F45642528D77A00E6FCB6 /* MovieListState.swift in Sources */,
 				426F45502528D64E00E6FCB6 /* MoviePosterCarouselView.swift in Sources */,
@@ -369,6 +376,7 @@
 				426F45602528D73900E6FCB6 /* GenreListState.swift in Sources */,
 				426F453F2528D54C00E6FCB6 /* DiscoverSceneView.swift in Sources */,
 				4234169E25294754005CDD75 /* BannerVC.swift in Sources */,
+				423416A02529F223005CDD75 /* OrientationInfo.swift in Sources */,
 				426F45092528D20D00E6FCB6 /* PopcornSwirlApp.swift in Sources */,
 				426F45352528D4CB00E6FCB6 /* MovieService.swift in Sources */,
 				426F45432528D59C00E6FCB6 /* MoviesSceneView.swift in Sources */,

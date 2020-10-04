@@ -12,7 +12,8 @@ import CoreData
 struct MyListSceneView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-
+    @EnvironmentObject var orientationInfo: OrientationInfo
+    
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MovieEntity.id, ascending: true)],
                   predicate: NSPredicate(format: "wishlisted = %@", NSNumber(value: true)),
                   animation: .default)
@@ -20,13 +21,13 @@ struct MyListSceneView: View {
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MovieEntity.id, ascending: true)],
                   predicate: NSPredicate(format: "watched = %@", NSNumber(value: true)),
-        animation: .default)
+                  animation: .default)
     var watchedData: FetchedResults<MovieEntity>
     
     @ObservedObject var wishlistedState = MovieDetailState()
     @ObservedObject var watchedState = MovieDetailState()
     
-    @State private var pickerSelected = 0
+    @State private var pickerSelected = true
     
     private let layout = [GridItem(.adaptive(minimum: 150))]
     private let navBarTitles = ["Wishlisted", "Watched"]
@@ -34,43 +35,33 @@ struct MyListSceneView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Banner()
-                Picker(selection: $pickerSelected.animation(), label: Text("")) {
-                    Text("Wishlisted").tag(0)
-                    Text("Watched").tag(1)
-                }
-                .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
-                .pickerStyle(SegmentedPickerStyle())
                 
-                if pickerSelected == 0 && wishlistedState.movies.count != 0 {
-                    ScrollView {
-                        LazyVGrid(columns: layout) {
-                            ForEach(wishlistedState.movies) { movie in
-                                NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
-                                    MoviePosterCard(movie: movie)
-                                        
-                                }.buttonStyle(PlainButtonStyle())
-                            }
-                        }.padding()
+                //MARK: PORTRAIT MODE
+                if orientationInfo.orientation == .portrait {
+                    VStack {
+                        header
                     }
-                } else if pickerSelected == 1 && watchedState.movies.count != 0 {
-                    ScrollView {
-                        LazyVGrid(columns: layout) {
-                            ForEach(watchedState.movies, id: \.id) { movie in
-                                NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
-                                    MoviePosterCard(movie: movie)
-                                }.buttonStyle(PlainButtonStyle())
-                            }
-                        }.padding()
+                    //MARK: LANDSCAPE MODE
+                } else {
+                    HStack {
+                        header
                     }
+                }
+                //MARK: GENERAL
+                if pickerSelected == true && wishlistedState.movies.count != 0 {
+                    bodyContent
+                } else if pickerSelected == false && watchedState.movies.count != 0 {
+                   bodyContent
                 } else {
                     Spacer()
-                    Text("You currently don't have \(navBarTitles[pickerSelected]) movies")
+                    Text("You currently don't have \(navBarTitles[pickerSelected ? 0 : 1]) movies")
                     Spacer()
                     
                 }
-            }.navigationBarTitle(navBarTitles[pickerSelected])
-        }.onAppear {
+            }.navigationBarTitle(navBarTitles[pickerSelected ? 0 : 1])
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
             self.configure()
         }
     }
@@ -92,4 +83,30 @@ struct MyListSceneView: View {
             }
         }
     }
+    
+    private var header: some View {
+        Group {
+            Banner()
+            Picker(selection: $pickerSelected.animation(), label: Text("")) {
+                Text("Wishlisted").tag(true)
+                Text("Watched").tag(false)
+            }
+            .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
+            .pickerStyle(SegmentedPickerStyle())
+        }
+    }
+    
+    private var bodyContent: some View {
+        ScrollView {
+            LazyVGrid(columns: layout) {
+                ForEach(self.pickerSelected ? wishlistedState.movies : watchedState.movies, id: \.id) { movie in
+                    NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
+                        MoviePosterCard(movie: movie)
+                    }.buttonStyle(PlainButtonStyle())
+                }
+            }.padding()
+        }
+
+    }
+    
 }
