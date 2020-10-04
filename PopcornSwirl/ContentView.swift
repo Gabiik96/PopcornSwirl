@@ -7,6 +7,9 @@
 
 import SwiftUI
 import CoreData
+import AppTrackingTransparency
+import AdSupport
+
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -22,6 +25,7 @@ struct ContentView: View {
                 .tabItem {
                     self.tabBarItem(text: "Movies", image: "square.stack")
                 }
+                .onAppear() { requestIDFA() }
             DiscoverSceneView()
                 .tabItem {
                     self.tabBarItem(text: "Discover", image: "film")
@@ -42,6 +46,11 @@ struct ContentView: View {
                 .imageScale(.large)
             Text(text)
         }
+    }
+    
+    func requestIDFA() {
+      ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+      })
     }
     
     private func setupApperance() {
