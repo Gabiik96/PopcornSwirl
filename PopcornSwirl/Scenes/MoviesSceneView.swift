@@ -28,6 +28,7 @@ struct MoviesSceneView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Banner()
                 Picker(selection: $pickerSelected.animation(), label: Text("")) {
                     Text("Popular").tag(0)
                     Text("Top Rated").tag(1)

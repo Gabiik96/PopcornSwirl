@@ -34,6 +34,7 @@ struct MyListSceneView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Banner()
                 Picker(selection: $pickerSelected.animation(), label: Text("")) {
                     Text("Wishlisted").tag(0)
                     Text("Watched").tag(1)
@@ -92,5 +93,3 @@ struct MyListSceneView: View {
         }
     }
 }
-
-

@@ -3,11 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		420EBBC4252944CA0083FF7F /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBBE252944C80083FF7F /* GoogleAppMeasurement.framework */; };
+		420EBBC5252944CA0083FF7F /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBBF252944CA0083FF7F /* GoogleMobileAds.framework */; };
+		420EBBC6252944CA0083FF7F /* GoogleUtilities.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBC0252944CA0083FF7F /* GoogleUtilities.xcframework */; };
+		420EBBC7252944CA0083FF7F /* PromisesObjC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBC1252944CA0083FF7F /* PromisesObjC.xcframework */; };
+		420EBBC8252944CA0083FF7F /* nanopb.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBC2252944CA0083FF7F /* nanopb.xcframework */; };
+		420EBBC9252944CA0083FF7F /* UserMessagingPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420EBBC3252944CA0083FF7F /* UserMessagingPlatform.framework */; };
 		422DCBB02528FAD3000BA018 /* MovieDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */; };
+		4234169E25294754005CDD75 /* BannerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4234169D25294754005CDD75 /* BannerVC.swift */; };
 		426F45092528D20D00E6FCB6 /* PopcornSwirlApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */; };
 		426F450B2528D20D00E6FCB6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F450A2528D20D00E6FCB6 /* ContentView.swift */; };
 		426F450D2528D20E00E6FCB6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 426F450C2528D20E00E6FCB6 /* Assets.xcassets */; };
@@ -48,7 +55,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		420EBBBE252944C80083FF7F /* GoogleAppMeasurement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleAppMeasurement.framework; sourceTree = "<group>"; };
+		420EBBBF252944CA0083FF7F /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		420EBBC0252944CA0083FF7F /* GoogleUtilities.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = GoogleUtilities.xcframework; sourceTree = "<group>"; };
+		420EBBC1252944CA0083FF7F /* PromisesObjC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = PromisesObjC.xcframework; sourceTree = "<group>"; };
+		420EBBC2252944CA0083FF7F /* nanopb.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = nanopb.xcframework; sourceTree = "<group>"; };
+		420EBBC3252944CA0083FF7F /* UserMessagingPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UserMessagingPlatform.framework; sourceTree = "<group>"; };
 		422DCBAF2528FAD3000BA018 /* MovieDropDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDropDownView.swift; sourceTree = "<group>"; };
+		4234169D25294754005CDD75 /* BannerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerVC.swift; sourceTree = "<group>"; };
 		426F45052528D20D00E6FCB6 /* PopcornSwirl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopcornSwirl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		426F45082528D20D00E6FCB6 /* PopcornSwirlApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopcornSwirlApp.swift; sourceTree = "<group>"; };
 		426F450A2528D20D00E6FCB6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,12 +109,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420EBBC5252944CA0083FF7F /* GoogleMobileAds.framework in Frameworks */,
+				420EBBC9252944CA0083FF7F /* UserMessagingPlatform.framework in Frameworks */,
+				420EBBC4252944CA0083FF7F /* GoogleAppMeasurement.framework in Frameworks */,
+				420EBBC6252944CA0083FF7F /* GoogleUtilities.xcframework in Frameworks */,
+				420EBBC8252944CA0083FF7F /* nanopb.xcframework in Frameworks */,
+				420EBBC7252944CA0083FF7F /* PromisesObjC.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4234169C25294745005CDD75 /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				4234169D25294754005CDD75 /* BannerVC.swift */,
+			);
+			path = AdMob;
+			sourceTree = "<group>";
+		};
 		426F44FC2528D20D00E6FCB6 = {
 			isa = PBXGroup;
 			children = (
@@ -141,6 +169,12 @@
 		426F450E2528D20E00E6FCB6 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				420EBBBF252944CA0083FF7F /* GoogleMobileAds.framework */,
+				420EBBC0252944CA0083FF7F /* GoogleUtilities.xcframework */,
+				420EBBC2252944CA0083FF7F /* nanopb.xcframework */,
+				420EBBC1252944CA0083FF7F /* PromisesObjC.xcframework */,
+				420EBBBE252944C80083FF7F /* GoogleAppMeasurement.framework */,
+				420EBBC3252944CA0083FF7F /* UserMessagingPlatform.framework */,
 				426F450F2528D20E00E6FCB6 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -192,6 +226,7 @@
 		426F452A2528D43A00E6FCB6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				4234169C25294745005CDD75 /* AdMob */,
 				426F45442528D5B300E6FCB6 /* Customs */,
 				426F45552528D69A00E6FCB6 /* MoviePosterCard.swift */,
 				426F45572528D6BA00E6FCB6 /* MovieDetailView.swift */,
@@ -333,6 +368,7 @@
 				426F452F2528D47100E6FCB6 /* Font.swift in Sources */,
 				426F45602528D73900E6FCB6 /* GenreListState.swift in Sources */,
 				426F453F2528D54C00E6FCB6 /* DiscoverSceneView.swift in Sources */,
+				4234169E25294754005CDD75 /* BannerVC.swift in Sources */,
 				426F45092528D20D00E6FCB6 /* PopcornSwirlApp.swift in Sources */,
 				426F45352528D4CB00E6FCB6 /* MovieService.swift in Sources */,
 				426F45432528D59C00E6FCB6 /* MoviesSceneView.swift in Sources */,
@@ -479,12 +515,19 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PopcornSwirl/Preview Content\"";
 				DEVELOPMENT_TEAM = Q4YKPW2G86;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+				);
 				INFOPLIST_FILE = PopcornSwirl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = GabrielBalta.PopcornSwirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -501,12 +544,19 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PopcornSwirl/Preview Content\"";
 				DEVELOPMENT_TEAM = Q4YKPW2G86;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+					"$(PROJECT_DIR)/PopcornSwirl/Preview\\ Content",
+				);
 				INFOPLIST_FILE = PopcornSwirl/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = GabrielBalta.PopcornSwirl;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

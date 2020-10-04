@@ -21,6 +21,7 @@ struct DiscoverSceneView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Banner()
                 SearchBarView(text: self.$movieSearchState.query)
                 DividerGradient()
                 Spacer()
