@@ -10,31 +10,45 @@ import CoreData
 
 struct MovieDetailView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var state: GenreListState
     
+    @FetchRequest(sortDescriptors: [], animation: .default) private var fetchedMovies: FetchedResults<MovieEntity>
+    
     @ObservedObject private var movieDetailState = MovieDetailState()
+    
+    @State var movie: Movie?
     
     let movieId: Int
     
     var body: some View {
-        ZStack {
-            LoadingView(isLoading: self.movieDetailState.isLoading, error: self.movieDetailState.error) {
-                self.movieDetailState.loadMovie(id: self.movieId)
-            }
-            LoadingView(isLoading: self.state.isLoading, error: self.state.error) {
-                self.state.loadGenres()
-            }
+        VStack {
             if movieDetailState.movie != nil && state.genres != nil {
                 MovieDetailListView(movie: self.movieDetailState.movie!, genres: state.genres!)
+            } else {
+                // Bug workaround
+                ZStack {
+                    Text(" ")
+                        .onAppear() {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                if self.movieDetailState.movie != nil && state.genres != nil {
+                                    self.movie = self.movieDetailState.movie
+                                }
+                            }
+                        }
+                    if self.movie != nil {
+                        MovieDetailListView(movie: self.movie!, genres: state.genres!)
+                    }
+                }
             }
         }
         .navigationBarTitle(movieDetailState.movie?.title ?? "")
         .onAppear {
             self.movieDetailState.loadMovie(id: self.movieId)
             self.state.loadGenres()
+            
         }
     }
-    
 }
 
 struct MovieDetailListView: View {
@@ -57,7 +71,7 @@ struct MovieDetailListView: View {
     let imageLoader = ImageLoader()
     
     let movie: Movie
-
+    
     
     
     init(movie: Movie, genres: [Genres]) {
@@ -241,9 +255,8 @@ struct MovieDetailListView: View {
         // Preparing URL search string for purchasing movie -> Getting rid of whitespaces if there is any
         let formattedTitle = self.movie.title.replacingOccurrences(of: " ", with: "")
         let urlString = "https://www.amazon.co.uk/s?k=\(formattedTitle)&i=instant-video&ref=nb_sb_noss_1"
-        print(formattedTitle)
         self.buyURL = URL(string: urlString)!
-
+        
         // CoreData configuration with current movie
         if fetchedMovies.first != nil {
             self.movieEntity = fetchedMovies.first!
