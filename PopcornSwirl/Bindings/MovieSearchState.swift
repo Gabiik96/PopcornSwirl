@@ -16,8 +16,7 @@ class MovieSearchState: ObservableObject {
     @Published var error: NSError?
     
     private var subscriptionToken: AnyCancellable?
-    
-    let movieService: NetworkingService
+    private let movieService: NetworkingService
     
     var isEmptyResults: Bool {
         !self.query.isEmpty && self.movies != nil && self.movies!.isEmpty

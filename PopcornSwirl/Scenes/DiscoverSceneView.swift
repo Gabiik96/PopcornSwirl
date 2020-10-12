@@ -22,40 +22,34 @@ struct DiscoverSceneView: View {
     var body: some View {
         
         NavigationView {
-            Group {
+            VStack {
                 //MARK: PORTRAIT MODE
                 if orientationInfo.orientation == .portrait {
-                    VStack {
-                        header
-                        DividerGradient()
-                        Spacer()
+                    header
+                    DividerGradient()
+                    Spacer()
+                    
+                    if movieSearchState.movies != nil {
+                        MoviePosterView(movies: movieSearchState.movies!)
                         
-                        if movieSearchState.query.count > 0 {
-                            if movieSearchState.movies != nil {
-                                MoviePosterView(movies: movieSearchState.movies!)
-                            }
-                        } else {
-                            MoviesByGenreListView()
-                        }
+                    } else {
+                        MoviesByGenreListView()
                     }
                     //MARK: LANDSCAPE MODE
                 } else {
-                    VStack {
-                        HStack {
-                            header
-                        }
-                        DividerGradient()
-                        Spacer()
-                        
-                        if movieSearchState.query.count > 0 {
-                            if movieSearchState.movies != nil {
-                                MoviePosterCarouselDetailView(movies: movieSearchState.movies!)
-                            }
-                        } else {
-                            MoviesByGenreListView()
-                        }
+                    HStack {
+                        header
                     }
+                    DividerGradient()
+                    Spacer()
                     
+                    if movieSearchState.query.count > 0 {
+                        if movieSearchState.movies != nil {
+                            MoviePosterCarouselDetailView(movies: movieSearchState.movies!)
+                        }
+                    } else {
+                        MoviesByGenreListView()
+                    }
                 }
                 
             }.navigationBarTitle("Discover")
@@ -70,8 +64,8 @@ struct DiscoverSceneView: View {
     private var header: some View {
         Group {
             Banner()
-            Spacer()
             SearchBarView(text: self.$movieSearchState.query)
+            Spacer()
         }
     }
     

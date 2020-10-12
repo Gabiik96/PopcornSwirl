@@ -19,9 +19,7 @@ struct MoviePosterView: View {
         ScrollView() {
             ForEach(self.movies) { movie in
                 NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
-                    HStack {
                     MoviePosterCard(movie: movie)
-                    }
                 }.buttonStyle(PlainButtonStyle())
                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
             }

@@ -51,19 +51,18 @@ struct MyListSceneView: View {
                 if pickerSelected == true && wishlistedState.movies.count != 0 {
                     bodyContent
                 } else if pickerSelected == false && watchedState.movies.count != 0 {
-                   bodyContent
+                    bodyContent
                 } else {
                     Spacer()
                     Text("You currently don't have \(navBarTitles[pickerSelected ? 0 : 1]) movies")
                     Spacer()
                     
                 }
-            }.navigationBarTitle(navBarTitles[pickerSelected ? 0 : 1])
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            self.configure()
-        }
+            }
+            .onAppear { self.configure() }
+            .navigationBarTitle(navBarTitles[pickerSelected ? 0 : 1])
+        }.navigationViewStyle(StackNavigationViewStyle())
+        
     }
     
     func configure() {
@@ -73,7 +72,6 @@ struct MyListSceneView: View {
         if wishlistedData.count != 0 {
             for data in wishlistedData {
                 self.wishlistedState.appendMovie(id: Int(data.id))
-                
             }
         }
         
@@ -100,13 +98,12 @@ struct MyListSceneView: View {
         ScrollView {
             LazyVGrid(columns: layout) {
                 ForEach(self.pickerSelected ? wishlistedState.movies : watchedState.movies, id: \.id) { movie in
-                    NavigationLink(destination: MovieDetailView(movieId: movie.id).onDisappear() {self.configure()}) {
+                    NavigationLink(destination: MovieDetailView(movieId: movie.id)) {
                         MoviePosterCard(movie: movie)
                     }.buttonStyle(PlainButtonStyle())
                 }
             }.padding()
         }
-
     }
     
 }

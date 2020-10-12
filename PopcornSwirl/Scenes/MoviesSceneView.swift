@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MoviesSceneView: View {
     
@@ -13,9 +14,7 @@ struct MoviesSceneView: View {
     @EnvironmentObject var orientationInfo: OrientationInfo
     @EnvironmentObject var genreListState: GenreListState
     
-    @FetchRequest(
-        sortDescriptors: [],
-        animation: .default)
+    @FetchRequest(sortDescriptors: [], animation: .default)
     private var fetchedMovies: FetchedResults<MovieEntity>
     
     @ObservedObject private var popularState = MovieListState()
@@ -78,6 +77,7 @@ struct MoviesSceneView: View {
             }
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 15))
             .pickerStyle(SegmentedPickerStyle())
+            Spacer()
         }
     }
     

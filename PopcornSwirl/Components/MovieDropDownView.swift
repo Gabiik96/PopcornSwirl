@@ -22,7 +22,6 @@ struct MovieDropDownView: View {
     
     var body: some View {
         VStack {
-            
             HStack {
                 if self.title != nil {
                     Text(self.title!)
