@@ -36,7 +36,7 @@ struct MovieDetailView: View {
                                 }
                             }
                         }
-                    if self.movie != nil {
+                    if self.movie != nil && state.genres != nil{
                         MovieDetailListView(movie: self.movie!, genres: state.genres!)
                     }
                 }
